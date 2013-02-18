@@ -1,5 +1,5 @@
 <?
-	class MarkdownifyComponent extends Object {
+	class MarkdownifyComponent extends Component {
 		
 		/**
 		 * Define the Markdownify varaible.
