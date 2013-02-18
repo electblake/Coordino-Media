@@ -18,7 +18,9 @@
 			$this->controller = $controller;
 			$this->controller->htmlFilter = new HtmlFilter;
 		}
-		
+		public function startup($controller) {
+			$this->controller = $controller;
+		}
 		public function filter($content) {
 			return $this->htmlFilter->filter($content);
 		}

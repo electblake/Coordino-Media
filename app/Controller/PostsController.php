@@ -3,8 +3,25 @@ class PostsController extends AppController {
 
 	var $name = 'Posts';
 	var $uses = array('Post', 'User', 'Answer', 'History', 'Setting', 'Tag', 'PostTag', 'Vote', 'Widget');
-	var $components = array('Auth', 'Session', 'Markdownify', 'Markdown', 'Cookie', 'Email', 'Recaptcha', 'Htmlfilter');
-	var $helpers = array('Javascript', 'Time', 'Cache', 'Thumbnail', 'Recaptcha', 'Session');
+  
+	public $components = array(
+    'Auth',
+    'Session',
+    'Markdownify',
+    'Markdown',
+    'Cookie', 
+    'Email',
+    'Recaptcha',
+    'Htmlfilter'
+  );
+	public $helpers = array(
+    'Javascript',
+    'Time',
+    'Cache',
+    'Thumbnail',
+    'Recaptcha',
+    'Session'
+  );
 	//var $cacheAction = "1 hour";
 	
 	public function beforeRender() {

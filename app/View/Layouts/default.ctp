@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title><?=$title_for_layout;?> | Coordino</title>
+	<title><?php echo $title_for_layout; ?> | Coordino</title>
 	<?=$this->Html->css('screen.css');?>
 	<?=$this->Html->css('prettify.css');?>
 	<?=$this->Html->script('prettify/prettify.js');?>
