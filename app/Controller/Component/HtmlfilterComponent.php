@@ -1,5 +1,5 @@
 <?
-	class HtmlfilterComponent extends Object {
+	class HtmlfilterComponent extends Component {
 		public $htmlFilter;
 		public $controller;
 		/**
@@ -18,15 +18,9 @@
 			$this->controller = $controller;
 			$this->controller->htmlFilter = new HtmlFilter;
 		}
-		public function startup($controller) {
-			$this->controller = $controller;
-		}
+		
 		public function filter($content) {
 			return $this->htmlFilter->filter($content);
-		}
-
-		public function beforeRender() {
-			
 		}
 	}
 ?>

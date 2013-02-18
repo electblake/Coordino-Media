@@ -111,7 +111,7 @@
 <?=$this->Form->checkbox('Post.notify', array('checked' => true));?>
 <span style="margin-left: 5px;"><?= __('Notify me when my question is answered.',true) ?></span>
 
-<?$this->Recaptcha->display_form('echo');?>
+<?//$this->Recaptcha->display_form('echo');?>
 
 <?=$this->Form->end( __('Ask a question',true));?>
 

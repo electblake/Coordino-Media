@@ -1,5 +1,5 @@
 <?php 
-class P28nComponent extends Object {
+class P28nComponent extends Component {
     var $components = array('Session', 'Cookie');
 
     function startup() {
