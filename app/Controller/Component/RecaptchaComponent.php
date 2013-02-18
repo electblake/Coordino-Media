@@ -1,19 +1,20 @@
 <?php 
- class RecaptchaComponent extends Object {
+ class RecaptchaComponent extends Component {
 	var $publickey = "";
 	var $privatekey= "";
 	
 	var $is_valid = false;
 	var $error = "";
+  public $component;
 	
-	function startup(&$controller){
+	function initialize(&$controller) {
 		Configure::write("Recaptcha.apiServer","http://api.recaptcha.net");
 		Configure::write("Recaptcha.apiSecureServer","https://api-secure.recaptcha.net");
 		Configure::write("Recaptcha.verifyServer","api-verify.recaptcha.net");
 		Configure::write("Recaptcha.pubKey", $this->publickey);
 		Configure::write("Recaptcha.privateKey", $this->privatekey);
 		
-		$this->controller =& $controller;
+		$this->controller = $controller;
 		$this->controller->helpers[] = "Recaptcha";
 	}
 	
