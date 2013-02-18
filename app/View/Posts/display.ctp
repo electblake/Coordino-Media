@@ -16,7 +16,7 @@ foreach($questions as $question) { ?>
 	
 	<div class="wrapper list_detail_text">
 		<div class="list_title  wrapper">
-		<?=$html->link(
+		<?=$this->Html->link(
 				$question['Post']['title'],
 				'/questions/' . $question['Post']['public_key'] . '/' . $question['Post']['url_title']
 			);
@@ -26,7 +26,7 @@ foreach($questions as $question) { ?>
 			<div style="float: right;">
 				<div class="thumb_with_border">
 		
-				<?php echo $html->link( $thumbnail->get(array(
+				<?php echo $this->Html->link( $this->Thumbnail->get(array(
 						        'save_path' => WWW_ROOT . 'img/thumbs',
 						        'display_path' => $this->webroot.  'img/thumbs',
 						        'error_image_path' => $this->webroot. 'img/answerAvatar.png',
@@ -39,7 +39,7 @@ foreach($questions as $question) { ?>
 				</div>
 				<div style="float: left; line-height: .9;">
 					<div>
-			<?=$html->link(
+			<?=$this->Html->link(
 					$question['User']['username'],
 					'/users/' . $question['User']['public_key'] . '/' . $question['User']['username']
 				);
@@ -55,7 +55,7 @@ foreach($questions as $question) { ?>
 		<div class="wrapper tags">
 		<?php foreach($question['Tag'] as $tag) { ?>
 			<div class="tag wrapper">
-				<?=$html->link(
+				<?=$this->Html->link(
 						$tag['tag'],
 						'/tags/' . $tag['tag']
 					);
@@ -90,7 +90,7 @@ if(isset($previous)) { ?>
 
 <?php if ( $type == 'recent'): ?>
     <div class="questionFeed">
-        <a href="<?php echo $html->url(array('controller' => 'rss','action' => 'feeds', 'ext' =>'rss'), true);?>">
+        <a href="<?php echo $this->Html->url(array('controller' => 'rss','action' => 'feeds', 'ext' =>'rss'), true);?>">
             recent questions feed
         </a>
      </div>

@@ -1,5 +1,5 @@
 <?php 
-App::import('Vendor', 'phpThumb', array('file' => 'phpThumb'.DS.'phpthumb.class.php'));
+App::uses('phpThumb', 'Vendor', array('file' => 'phpThumb'.DS.'phpthumb.class.php'));
 
 class ThumbnailHelper extends Helper    {
     
