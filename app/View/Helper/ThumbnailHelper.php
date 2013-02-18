@@ -1,5 +1,6 @@
 <?php 
-App::uses('phpThumb', 'Vendor/phpThumb', array('file' => 'phpThumb'.DS.'phpthumb.class.php'));
+//die('Vendor/edlcdmc'.DS.'lib-phpthumb'.DS.'lib'.DS.'PhpThumb'.DS.'src'.DS.'phpthumb.class.php');
+//App::uses('phpThumb', 'Vendor/edlcdmc', array('file' => 'lib-phpthumb'.DS.'lib'.DS.'PhpThumb'.DS.'src'.DS.'phpthumb.class.php'));
 
 class ThumbnailHelper extends Helper    {
     
@@ -36,6 +37,7 @@ class ThumbnailHelper extends Helper    {
         foreach($filename_parts as $key => $value)    {
             $this->cache_filename .= $key . $value;
         }
+
         $this->cache_filename = $this->options['save_path'] . DS . md5($this->cache_filename) . $this->file_extension;
     }
     
@@ -48,17 +50,39 @@ class ThumbnailHelper extends Helper    {
     }
     
     private function create_thumb()    {
-        $this->php_thumb = new phpThumb();
-        foreach($this->php_thumb as $var => $value) {
-            if(isset($this->options[$var]))    {
-                $this->php_thumb->setParameter($var, $this->options[$var]);
-            }
-        }
-        if($this->php_thumb->GenerateThumbnail()) {
-            $this->php_thumb->RenderToFile($this->cache_filename);
+
+        if (empty($this->options['src'])) {
+            $src = $this->options['src'];
         } else {
-            $this->error = ereg_replace("[^A-Za-z0-9\/: .]", "", $this->php_thumb->fatalerror);
-            $this->error = str_replace('phpThumb v1.7.8200709161750', '', $this->error);
+            return false;
+        }
+        $this->php_thumb = new PHPThumb\GD($src);
+
+
+        $x = !empty($this->options['w']) ? $this->options['w'] : null;
+        $y = !empty($this->options['h']) ? $this->options['h'] : null;
+
+        //$thumb = new PHPThumb\GD(__DIR__ .'/../tests/resources/test.jpg');
+        if (!empty($x) || !empty($y)) {
+            $this->php_thumb->crop($x, $y);    
+        }
+        
+        $this->php_thumb->show();
+
+
+        // foreach($this->php_thumb as $var => $value) {
+        //     if(isset($this->options[$var]))    {
+        //         $this->php_thumb->setParameter($var, $this->options[$var]);
+        //     }
+        // }
+        
+        if($this->php_thumb->show()) {
+            $filename = $this->options['save_path'];
+            $filename .= basename($this->options['src']);
+            die($filename);
+            $this->php_thumb->save($filename);
+        } else {
+            $this->error = true;
         }
     }
     

@@ -1,8 +1,8 @@
 <?	
-	echo $html->css('wmd.css');
-	echo $javascript->link('wmd/showdown.js');
-	echo $javascript->link('wmd/wmd.js');
-	echo $javascript->link('jquery/jquery.js');
+	echo $this->Html->css('wmd.css');
+	echo $this->Js->link('wmd/showdown.js');
+	echo $this->Js->link('wmd/wmd.js');
+	echo $this->Js->link('jquery/jquery.js');
 ?>
 <script> //<![CDATA[    
   // When the page is ready
@@ -25,11 +25,11 @@
 	<div class="content_container wrapper">
 		<div class="content_actions" style="float: left; width: 55px; margin-right: 10px;">
 			<?php
-                echo $html->image('arrow_up.png', array('alt' => 'Vote Up', 'url' => '/vote/' . $question['Post']['public_key'] . '/up'));
+                echo $this->Html->image('arrow_up.png', array('alt' => 'Vote Up', 'url' => '/vote/' . $question['Post']['public_key'] . '/up'));
 			?>
 			<span class="large_text quiet" style="display: block; padding: 0px; margin: 0px;"><strong><?=$question['Post']['votes'];?></strong></span>
 			<?php
-                echo $html->image('arrow_down.png', array('alt' => 'Vote Down', 'url' => '/vote/' . $question['Post']['public_key'] . '/down'));
+                echo $this->Html->image('arrow_down.png', array('alt' => 'Vote Down', 'url' => '/vote/' . $question['Post']['public_key'] . '/down'));
 	        ?>
 
 		</div>
@@ -42,23 +42,23 @@
 	<div class="post_actions wrapper">
 
 		<div style="width: 100px; float: left;">
-        <? if($question['Post']['user_id'] != $session->read('Auth.User.id')) { ?>
-        <?=$html->link(
+        <? if($question['Post']['user_id'] != $this->Session->read('Auth.User.id')) { ?>
+        <?=$this->Html->link(
 				__('flag',true),
 				'/flag/' . $question['Post']['public_key']
 			 );
         ?>
         <?php } 
-        if($question['Post']['user_id'] == $session->read('Auth.User.id') || isset($rep_rights) || $admin) { ?>
+        if($question['Post']['user_id'] == $this->Session->read('Auth.User.id') || isset($rep_rights) || $admin) { ?>
 		| 
-		<?=$html->link(
+		<?=$this->Html->link(
 				__('edit',true),
 				'/questions/' . $question['Post']['public_key'] . '/' . $question['Post']['url_title'] . '/edit');
 		}
 		?>
 
         <?php if($admin): ?>
-               | <?=$html->link(
+               | <?=$this->Html->link(
                        __('del',true),
                '/posts/delete/'.$question['Post']['id']); ?></a>
         <?php endif; ?>
@@ -67,27 +67,28 @@
 
 		<?if(!empty($question['Post']['last_edited_timestamp'])) { ?>
 			<div style="width: 275px; float: left; text-align: center;">
-				edited <strong><?=$time->timeAgoInWords($question['Post']['last_edited_timestamp']);?></strong>
+				edited <strong><?=$this->Time->timeAgoInWords($question['Post']['last_edited_timestamp']);?></strong>
 			</div>
 		<? } ?>
 
 		<div class="user_info wrapper">
 			<div style="float: left;">
 				<div class="thumb_with_border">
-				<?php echo $html->link( $thumbnail->get(array(
-						        'save_path' => WWW_ROOT . 'img/thumbs',
-						        'display_path' => $this->webroot.  'img/thumbs',
-						        'error_image_path' => $this->webroot. 'img/answerAvatar.png',
-						        'src' => WWW_ROOT .  $question['User']['image'],
-						        'w' => 25,
-								'h' => 25,
-								'q' => 100,
-		                        'alt' => $question['User']['username'] . ' picture' )
-			),'/users/' .$question['User']['public_key'].'/'.$question['User']['username'], array('escape' => false));?>
+				<?php
+					$thumb_url = $this->Thumbnail->get(array(
+																							'save_path' => WWW_ROOT . 'img/thumbs',
+																							'display_path' => $this->webroot.  'img/thumbs',
+																							'error_image_path' => $this->webroot. 'img/answerAvatar.png',
+																							'src' => WWW_ROOT .  $question['User']['image'],
+																							'w' => 25,
+																							'h' => 25,
+																							'q' => 100,
+																							'alt' => $question['User']['username'] . ' picture' ));
+					//echo $this->Html->link($thumb_url,'/users/' .$question['User']['public_key'].'/'.$question['User']['username'], array('escape' => false));?>
 				</div>
 				<div style="float: left; line-height: .9;">
 					<div>
-			<?=$html->link(
+			<?=$this->Html->link(
 					$question['User']['username'],
 					'/users/' . $question['User']['public_key'] . '/' . $question['User']['username']
 				);
@@ -95,7 +96,7 @@
 			<span style="font-size: 8pt;">&#8226;</span>
 			<h4 style="display: inline;"><?=$question['User']['reputation'];?></h4>
 					</div> 
-			<span class="quiet">asked <?=$time->timeAgoInWords($question['Post']['timestamp']);?></span>
+			<span class="quiet">asked <?=$this->Time->timeAgoInWords($question['Post']['timestamp']);?></span>
 				</div>
 				<div style="clear: both;"></div>
 			</div>
@@ -104,7 +105,7 @@
 		<div id="tags" style="clear: left;">
 			<? foreach($question['Tag'] as $tag) { ?>
 				<div class="tag">
-					<?=$html->link(
+					<?=$this->Html->link(
 							$tag['tag'],
 							'/tags/' . $tag['tag']
 						);
@@ -121,12 +122,12 @@
 			<div class="comment">
 				<?=$comment['content']?> &ndash;
 
-				<?=$html->link(
+				<?=$this->Html->link(
 						$comment['User']['username'],
 						'/users/' . $comment['User']['public_key'] . '/' . $comment['User']['username']
 					);
 				?>
-				<span class="quiet"><?=$time->timeAgoInWords($comment['timestamp']); ?></span>
+				<span class="quiet"><?=$this->Time->timeAgoInWords($comment['timestamp']); ?></span>
 			</div>
 			<? } ?>
 		</div>
@@ -134,15 +135,15 @@
 	<? } ?>
 
 	<div id="comment_<?=$question['Post']['public_key'];?>" class="comment_area">
-		<?=$form->create(null, array(
+		<?=$this->Form->create(null, array(
 				'url' => '/questions/' . $question['Post']['public_key'] . '/comment')
 			);
 		?>
-		<?=$form->text('Comment.content', array('class' => 'comment_input'));?>
-		<?=$form->end('Comment');?>
+		<?=$this->Form->text('Comment.content', array('class' => 'comment_input'));?>
+		<?=$this->Form->end('Comment');?>
 	</div>
 	<div class="comment_actions">
-	<?=$html->link(
+	<?=$this->Html->link(
 			__('add comment',true),
 			'#');
 	?>
@@ -158,26 +159,26 @@
 
 		<div class="content_container wrapper">
 			<div class="content_actions" style="float: left; width: 55px; margin-right: 10px;">
-				<?php echo $html->image('arrow_up.png', array(
+				<?php echo $this->Html->image('arrow_up.png', array(
                                         'alt' => 'Vote Up',
                                         'url' => '/vote/' . $answer['Answer']['public_key'] . '/up'
                                     )); ?>
 				<span class="large_text quiet" style="display: block; padding: 0px; margin: 0px;"><strong><?=$answer['Answer']['votes'];?></strong></span>
-				<?php echo $html->image('arrow_down.png', array(
+				<?php echo $this->Html->image('arrow_down.png', array(
                                         'alt' => 'Vote Down',
                                         'url' => '/vote/' . $answer['Answer']['public_key'] . '/down'
                                     )); ?>
                                 
-				<? if($question['Post']['user_id'] == $session->read('Auth.User.id') && $answer['Answer']['status'] != 'correct' && $question['Post']['status'] != 'closed') {?>
+				<? if($question['Post']['user_id'] == $this->Session->read('Auth.User.id') && $answer['Answer']['status'] != 'correct' && $question['Post']['status'] != 'closed') {?>
 				<div class="checkmark">
-					<?=$html->link(
+					<?=$this->Html->link(
 							'',
 							'/questions/' .  $answer['Answer']['public_key'] . '/' . 'correct'
 						);
 					?>
 				</div>
 				<? } if($answer['Answer']['status'] == 'correct') {
-					echo $html->image('checkmark_green.png');
+					echo $this->Html->image('checkmark_green.png');
 				} ?>
 				
 			</div>
@@ -190,7 +191,7 @@
 			<div class="user_info wrapper">
 				<div style="float: left;">
 				<div class="thumb_with_border">
-				<?php echo $html->link( $thumbnail->get(array(
+				<?php echo $this->Html->link( $this->Thumbnail->get(array(
 						        'save_path' => WWW_ROOT . 'img/thumbs',
 						        'display_path' => $this->webroot.  'img/thumbs',
 						        'error_image_path' => $this->webroot. 'img/answerAvatar.png',
@@ -203,7 +204,7 @@
 				</div>
 				<div style="float: left; line-height: .9;">
 					<div>
-			<?=$html->link(
+			<?=$this->Html->link(
 					$answer['User']['username'],
 					'/users/' . $answer['User']['public_key'] . '/' . $answer['User']['username']
 				);
@@ -211,19 +212,19 @@
 			<span style="font-size: 8pt;">&#8226;</span>
 			<h4 style="display: inline;"><?=$answer['User']['reputation'];?></h4>
 					</div> 
-			<span class="quiet">answered <?=$time->timeAgoInWords($answer['Answer']['timestamp']);?></span>
+			<span class="quiet">answered <?=$this->Time->timeAgoInWords($answer['Answer']['timestamp']);?></span>
 				</div>
 				<div style="clear: both;"></div>
 			</div>
 			</div>
 	
-			<?=$html->link(
+			<?=$this->Html->link(
 					'flag',
 					'/flag/' . $answer['Answer']['public_key']
 				);
 			?>
 			<span class="quiet">|</span> 
-			<?=$html->link(
+			<?=$this->Html->link(
 					'link',
 					'/questions/'
 					. $question['Post']['public_key'] . '/' 
@@ -231,9 +232,9 @@
 					. '#a_' . $answer['Answer']['public_key']
 				);
 			?>
-			<? if($answer['Answer']['user_id'] == $session->read('Auth.User.id') || isset($rep_rights)) { ?>
+			<? if($answer['Answer']['user_id'] == $this->Session->read('Auth.User.id') || isset($rep_rights)) { ?>
 			<span class="quiet">|</span>
-			<?=$html->link(
+			<?=$this->Html->link(
 					__('edit',true),
 					'/answers/' . $answer['Answer']['public_key'] . '/edit');
 			}
@@ -247,12 +248,12 @@
 				<div class="comment">
 					<?=$comment['content']?> &ndash; 
 				
-					<?=$html->link(
+					<?=$this->Html->link(
 							$comment['User']['username'],
 							array('controller' => 'users', 'action' => 'view', $comment['User']['public_key'], $comment['User']['username'])
 						);
 					?>
-					<span class="quiet"><?=$time->timeAgoInWords($comment['timestamp']); ?></span>
+					<span class="quiet"><?=$this->Time->timeAgoInWords($comment['timestamp']); ?></span>
 				</div>
 				<? } ?>
 			</div>
@@ -260,15 +261,15 @@
 		<? } ?>
 	
 		<div id="comment_<?=$answer['Answer']['public_key'];?>" class="comment_area">
-			<?=$form->create(null, array(
+			<?=$this->Form->create(null, array(
 					'url' => '/questions/' . $answer['Answer']['public_key'] . '/comment')
 				); 
 			?>
-			<?=$form->text('Comment.content', array('class' => 'comment_input'));?> 
-			<?=$form->end('Comment');?>
+			<?=$this->Form->text('Comment.content', array('class' => 'comment_input'));?> 
+			<?=$this->Form->end('Comment');?>
 		</div>
 		<div class="comment_actions">
-		<?=$html->link(
+		<?=$this->Html->link(
 				'add comment',
 				'#');
 		?>
@@ -279,35 +280,35 @@
 </div>
 
 <div id="user_answer">
-	<? if ($session->read('errors')) {
-			foreach($session->read('errors.errors') as $error) {
+	<? if ($this->Session->read('errors')) {
+			foreach($this->Session->read('errors.errors') as $error) {
 				echo '<div class="error">' . $error . '</div>';
 			}
 		}
 	?>
 	<h3><?php __('your answer'); ?></h3>
-	<?=$form->create(null, array(
+	<?=$this->Form->create(null, array(
 			'url' => '/questions/' . $question['Post']['public_key'] . '/' . $question['Post']['url_title'] . '/answer')
 		); ?>
 	<div id="wmd-button-bar" class="wmd-panel"></div>
-	<?=$form->textarea('content', array(
-		'id' => 'wmd-input', 'class' => 'wmd-panel', 'value' => $session->read('errors.data.Post.content')
+	<?=$this->Form->textarea('content', array(
+		'id' => 'wmd-input', 'class' => 'wmd-panel', 'value' => $this->Session->read('errors.data.Post.content')
 		));
 	 ?>
 
 	<div id="wmd-preview" class="wmd-panel"></div>
 
-	<? if(!$session->check('Auth.User.id')) { ?>
+	<? if(!$this->Session->check('Auth.User.id')) { ?>
 	<h2>Who Are You?</h2>
 	<span class="quiet">Have an account already? <a href="/login">Login before answering!</a></span><br/>
-		<?=$form->label('name');?><br/>
-		<?=$form->text('User.username', array('class' => 'big_input medium_input '));?><br/>
-		<?=$form->label('email');?><br/>
-		<?=$form->text('User.email', array('class' => 'big_input medium_input '));?><br/>		
+		<?=$this->Form->label('name');?><br/>
+		<?=$this->Form->text('User.username', array('class' => 'big_input medium_input '));?><br/>
+		<?=$this->Form->label('email');?><br/>
+		<?=$this->Form->text('User.email', array('class' => 'big_input medium_input '));?><br/>		
 	<? } ?>
 	
 	<?$recaptcha->display_form('echo');?>
 	
 	<br/>
-	<?=$form->end(__d('verb','Answer',true));?>
+	<?=$this->Form->end(__d('verb','Answer',true));?>
 </div>
