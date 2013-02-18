@@ -1,0 +1,28 @@
+{
+    "name": "coordino/media",
+    "description": "Media fork of Coordino",
+    "authors": [
+        {
+            "name": "electblake",
+            "email": "electblake@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "mustache/mustache": "v2.0.2",
+        "edlcdmc/lib-phpthumb": "dev-master",
+        "electblake/cakeless": "1.0.1",
+        "uzyn/composer": "dev-master",
+        "masterexploder/PHPThumb": "2.*"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/electblake/cakephp-composer"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/masterexploder/PHPThumb"
+        }
+    ]
+}

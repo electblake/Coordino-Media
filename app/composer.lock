@@ -1,0 +1,324 @@
+{
+    "hash": "fbcdfdb9e1dd6b5263ced2ff4d9036f9",
+    "packages": [
+        {
+            "name": "composer/installers",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/composer/installers.git",
+                "reference": "v1.0.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/composer/installers/zipball/v1.0.2",
+                "reference": "v1.0.2",
+                "shasum": ""
+            },
+            "replace": {
+                "shama/baton": "*"
+            },
+            "require-dev": {
+                "composer/composer": "1.0.*@dev",
+                "phpunit/phpunit": "3.7.*"
+            },
+            "time": "2013-02-18 00:51:06",
+            "type": "composer-installer",
+            "extra": {
+                "class": "Composer\\Installers\\Installer",
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Composer\\Installers\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kyle Robinson Young",
+                    "email": "kyle@dontkry.com",
+                    "homepage": "https://github.com/shama",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A multi-framework Composer library installer",
+            "homepage": "http://composer.github.com/installers/",
+            "keywords": [
+                "TYPO3 Flow",
+                "TYPO3 Neos",
+                "agl",
+                "cakephp",
+                "codeigniter",
+                "drupal",
+                "fuelphp",
+                "installer",
+                "joomla",
+                "kohana",
+                "laravel",
+                "li3",
+                "lithium",
+                "mako",
+                "phpbb",
+                "ppi",
+                "silverstripe",
+                "symfony",
+                "wordpress",
+                "zend"
+            ]
+        },
+        {
+            "name": "edlcdmc/lib-phpthumb",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/edlcdmc/lib-phpThumb.git",
+                "reference": "2549bfdcd81e5b631de86caacea9b88a972da469"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/edlcdmc/lib-phpThumb/zipball/2549bfdcd81e5b631de86caacea9b88a972da469",
+                "reference": "2549bfdcd81e5b631de86caacea9b88a972da469",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "time": "2012-09-09 20:57:47",
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "PhpThumb_": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL"
+            ],
+            "authors": [
+                {
+                    "name": "James Heinric",
+                    "email": "info@silisoftware.com"
+                }
+            ],
+            "description": "phpThumb() uses the GD library to create thumbnails from images (GIF, PNG or JPEG) on the fly",
+            "homepage": "http://phpthumb.sourceforge.net",
+            "keywords": [
+                "Symfony2",
+                "phpthumb"
+            ]
+        },
+        {
+            "name": "electblake/cakeless",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/electblake/cakeless",
+                "reference": "1.0.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/electblake/cakeless/zipball/1.0.1",
+                "reference": "1.0.1",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "*",
+                "leafo/lessphp": "dev-master"
+            },
+            "time": "2013-02-05 07:38:23",
+            "type": "cakephp-plugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "electblake",
+                    "email": "electblake@gmail.com"
+                },
+                {
+                    "name": "Sebastián Veggiani",
+                    "homepage": "http://actionauta.com"
+                }
+            ],
+            "description": "A very simple plugin for using phpless (a LESS php implementation) in CakePHP"
+        },
+        {
+            "name": "leafo/lessphp",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "http://github.com/leafo/lessphp",
+                "reference": "00fdb9ea66c6d89b3864a9025374e52c338c06a3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/leafo/lessphp/zipball/00fdb9ea66c6d89b3864a9025374e52c338c06a3",
+                "reference": "00fdb9ea66c6d89b3864a9025374e52c338c06a3",
+                "shasum": ""
+            },
+            "time": "2013-02-13 04:14:39",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.3-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "lessc.inc.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT",
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Leaf Corcoran",
+                    "email": "leafot@gmail.com",
+                    "homepage": "http://leafo.net"
+                }
+            ],
+            "description": "lessphp is a compiler for LESS written in PHP.",
+            "homepage": "http://leafo.net/lessphp/"
+        },
+        {
+            "name": "masterexploder/PHPThumb",
+            "version": "2.0.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/masterexploder/PHPThumb",
+                "reference": "9a713011687ca7272f934c30f523b39e7cad2c9e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/masterexploder/PHPThumb/zipball/9a713011687ca7272f934c30f523b39e7cad2c9e",
+                "reference": "9a713011687ca7272f934c30f523b39e7cad2c9e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "time": "2012-06-04 01:03:06",
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "PHPThumb": "src"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Ian Selby",
+                    "email": "ian@gxdlabs.com"
+                },
+                {
+                    "name": "Jarrod Nettles",
+                    "email": "jarrod@squarecrow.com"
+                }
+            ],
+            "description": "A library for manipulating images in PHP.",
+            "homepage": "https://github.com/masterexploder/PHPThumb",
+            "keywords": [
+                "image",
+                "resize",
+                "rotate"
+            ],
+            "support": {
+                "source": "https://github.com/masterexploder/PHPThumb/tree/2.0",
+                "issues": "https://github.com/masterexploder/PHPThumb/issues"
+            }
+        },
+        {
+            "name": "mustache/mustache",
+            "version": "v2.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bobthecow/mustache.php",
+                "reference": "v2.0.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/bobthecow/mustache.php/zipball/v2.0.2",
+                "reference": "v2.0.2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.4"
+            },
+            "time": "2012-09-12 09:13:06",
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Mustache": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Justin Hileman",
+                    "email": "justin@justinhileman.info",
+                    "homepage": "http://justinhileman.com"
+                }
+            ],
+            "description": "A Mustache implementation in PHP.",
+            "homepage": "https://github.com/bobthecow/mustache.php",
+            "keywords": [
+                "mustache",
+                "templating"
+            ]
+        },
+        {
+            "name": "uzyn/composer",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/electblake/cakephp-composer",
+                "reference": "05996ba167ba32dc040f80b8872e02979f6d11d7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/electblake/cakephp-composer/zipball/05996ba167ba32dc040f80b8872e02979f6d11d7",
+                "reference": "05996ba167ba32dc040f80b8872e02979f6d11d7",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "*"
+            },
+            "time": "2013-02-18 06:48:24",
+            "type": "cakephp-plugin",
+            "authors": [
+                {
+                    "name": "uzyn",
+                    "email": "chua@uzyn.com"
+                }
+            ],
+            "description": "CakePHP Composer plugin (handy)",
+            "homepage": "https://github.com/uzyn/cakephp-composer",
+            "keywords": [
+                "cakephp",
+                "composer",
+                "devtools"
+            ],
+            "support": {
+                "source": "https://github.com/uzyn/cakephp-composer"
+            }
+        }
+    ],
+    "packages-dev": null,
+    "aliases": [
+
+    ],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "edlcdmc/lib-phpthumb": 20,
+        "uzyn/composer": 20
+    }
+}
