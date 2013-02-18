@@ -68,6 +68,9 @@
 <h2><?= __('Ask a question',true) ?></h2>
 <? if ($this->Session->read('errors')) {
 		foreach($this->Session->read('errors.errors') as $error) {
+			if (is_array($error)) {
+				$error = implode("<br />",$error);
+			}
 			echo '<div class="error">' . $error . '</div>';
 		}
 	}

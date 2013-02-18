@@ -70,7 +70,8 @@ class PostsController extends AppController {
 			/**
 			 * reCAPTCHA Check
 			 */
-				$this->data['reCAPTCHA'] = $this->params['form'];
+
+				$this->request->data['reCAPTCHA'] = $this->params['form'];
 				$this->__validatePost($this->data, '/questions/ask', true);
 			
 				/**
@@ -188,6 +189,7 @@ class PostsController extends AppController {
 				'errors' => $validationErrors,
 				'data' => $data
 				);
+      //Debugger::dump($errors);
 			$this->Session->write(array('errors' => $errors));
 			$this->redirect($redirectUrl);
 		}
@@ -644,7 +646,7 @@ class PostsController extends AppController {
 
     public function flag($public_key) {
         $redirect = $this->Post->correctRedirect($public_key);
-        if(!$this->Auth->user('id')) {
+        if(!$this->Auth->User('id')) {
             $this->Session->setFlash(__('You need to be logged in to do that!',true), 'error');
             $this->redirect('/questions/' . $redirect['Post']['public_key'] . '/' . $redirect['Post']['url_title']);
         }elseif(!$this->Setting->repCheck($this->Auth->user('id'), 'rep_flag')) {

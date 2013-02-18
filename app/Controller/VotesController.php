@@ -2,7 +2,7 @@
 class VotesController extends AppController {
     var $name = 'Votes';
     var $uses = array('Post', 'Vote', 'User', 'Setting');
-	var $helpers = array('Javascript');
+	var $helpers = array('Js');
 	
 	function beforeFilter() {
 		parent::beforeFilter();
@@ -34,7 +34,7 @@ class VotesController extends AppController {
                 )
             );
         }
-        if(!isset($_SESSION['Auth']['User']['id'])) {
+        if(!$this->Auth->user('id')) {
                 $this->Session->setFlash('You must be logged in to do that!', 'error');
                 $this->redirect('/questions/' . $title['Post']['public_key'] . '/' . $title['Post']['url_title']);
         }

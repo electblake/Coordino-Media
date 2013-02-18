@@ -34,9 +34,9 @@ $('#tabs ul li a').click(function(){ //When any link is clicked
 <div id="userAvatar">
 	<div id="image">
 		<? if(empty($user['User']['image'])) { ?>
-			<?=$html->image('answerAvatar.png'); ?>
+			<?=$this->Html->image('answerAvatar.png'); ?>
 		<? }else { 
-echo $thumbnail->show(array(
+echo $this->Thumbnail->show(array(
 						        'save_path' => WWW_ROOT . 'img/thumbs',
 						        'display_path' => $this->webroot.  'img/thumbs',
 						        'error_image_path' => $this->webroot. 'img/answerAvatar.png',
@@ -89,7 +89,7 @@ echo $thumbnail->show(array(
 			</tr>
 			<tr>
 				<td>joined</td>
-				<td><?=$time->timeAgoInWords($user['User']['joined']);?></td>
+				<td><?=$this->Time->timeAgoInWords($user['User']['joined']);?></td>
 			</tr>
 			<tr>
 				<td>reputation</td>
@@ -106,12 +106,12 @@ echo $thumbnail->show(array(
 		    <? foreach($recent as $key => $value) { ?>
 			<tr>
 				<td>
-					<? if ($time->isToday($recent[$key]['History']['timestamp'])) : ?>
+					<? if ($this->Time->isToday($recent[$key]['History']['timestamp'])) : ?>
 						today
-					<? elseif ($time->wasYesterday($recent[$key]['History']['timestamp'])) : ?>
+					<? elseif ($this->Time->wasYesterday($recent[$key]['History']['timestamp'])) : ?>
 						yesterday
 					<? else : ?>
-						<?= $time->niceShort($recent[$key]['History']['timestamp']) ?>
+						<?= $this->Time->niceShort($recent[$key]['History']['timestamp']) ?>
 					<? endif; ?>
 				</td>
 				
@@ -142,28 +142,28 @@ echo $thumbnail->show(array(
 				
 				<td>
 			    <? if(($recent[$key]['History']['type'] == 'asked') || ($recent[$key]['History']['type'] == 'edited')) : ?>
-			    	<?=$html->link($recent[$key]['Post']['title'], '/questions/' . $recent[$key]['Post']['public_key'] . '/' . $recent[$key]['Post']['url_title']);?> 
+			    	<?=$this->Html->link($recent[$key]['Post']['title'], '/questions/' . $recent[$key]['Post']['public_key'] . '/' . $recent[$key]['Post']['url_title']);?> 
 			  	<? elseif($recent[$key]['History']['type'] == 'commented') : ?>
 					<? if(isset($recent[$key]['Pad'])) : ?>
-			        	<?=$html->link($recent[$key]['Pad']['Post']['title'], '/questions/' . $recent[$key]['Pad']['Post']['public_key'] . '/' . $recent[$key]['Pad']['Post']['url_title']);?> 
+			        	<?=$this->Html->link($recent[$key]['Pad']['Post']['title'], '/questions/' . $recent[$key]['Pad']['Post']['public_key'] . '/' . $recent[$key]['Pad']['Post']['url_title']);?> 
 					<? elseif(isset($recent[$key]['Real'])) : ?>
-						<?=$html->link($recent[$key]['Real']['Post']['title'], '/questions/' . $recent[$key]['Real']['Post']['public_key'] . '/' . $recent[$key]['Real']['Post']['url_title']);?> 
+						<?=$this->Html->link($recent[$key]['Real']['Post']['title'], '/questions/' . $recent[$key]['Real']['Post']['public_key'] . '/' . $recent[$key]['Real']['Post']['url_title']);?> 
 					<? endif; ?>
 			    <?  else : ?>
-					<?=$html->link($recent[$key]['Pad']['Post']['title'], '/questions/' . $recent[$key]['Pad']['Post']['public_key'] . '/' . $recent[$key]['Pad']['Post']['url_title']);?> 
+					<?=$this->Html->link($recent[$key]['Pad']['Post']['title'], '/questions/' . $recent[$key]['Pad']['Post']['public_key'] . '/' . $recent[$key]['Pad']['Post']['url_title']);?> 
 			    <? endif; ?>
 
 					
 			    <?  if($recent[$key]['History']['type'] == 'edited') : ?>
                     <? if(isset($recent[$key]['Pad'])) { ?>
-                        <?=$html->link($recent[$key]['Pad']['Post']['title'], '/questions/' . $recent[$key]['Pad']['Post']['public_key'] . '/' . $recent[$key]['Pad']['Post']['url_title']);?>
+                        <?=$this->Html->link($recent[$key]['Pad']['Post']['title'], '/questions/' . $recent[$key]['Pad']['Post']['public_key'] . '/' . $recent[$key]['Pad']['Post']['url_title']);?>
                     <? }else { ?>
-                        <?=$html->link($recent[$key]['Post']['title'], '/questions/' . $recent[$key]['Post']['public_key'] . '/' . $recent[$key]['Post']['url_title']);?> 
+                        <?=$this->Html->link($recent[$key]['Post']['title'], '/questions/' . $recent[$key]['Post']['public_key'] . '/' . $recent[$key]['Post']['url_title']);?> 
                     <? } ?>
 			    <? elseif(isset($recent[$key]['Pad'])) : ?>
-                    <?=$html->link($recent[$key]['Pad']['Post']['title'], '/questions/' . $recent[$key]['Pad']['Post']['public_key'] . '/' . $recent[$key]['Pad']['Post']['url_title']);?>
+                    <?=$this->Html->link($recent[$key]['Pad']['Post']['title'], '/questions/' . $recent[$key]['Pad']['Post']['public_key'] . '/' . $recent[$key]['Pad']['Post']['url_title']);?>
                 <? else : ?>
-                	<?=$html->link($recent[$key]['Post']['title'], '/questions/' . $recent[$key]['Post']['public_key'] . '/' . $recent[$key]['Post']['url_title']);?> 
+                	<?=$this->Html->link($recent[$key]['Post']['title'], '/questions/' . $recent[$key]['Post']['public_key'] . '/' . $recent[$key]['Post']['url_title']);?> 
                 <? endif ?>
 
 				</td>
@@ -178,7 +178,7 @@ echo $thumbnail->show(array(
 	    <? foreach($recent as $key => $value) { ?>
 		<p>
 	    <? if($recent[$key]['History']['type'] == 'asked') {
-	        echo $html->link($recent[$key]['Post']['title'], '/questions/' . $recent[$key]['Post']['public_key'] . '/' . $recent[$key]['Post']['url_title']);
+	        echo $this->Html->link($recent[$key]['Post']['title'], '/questions/' . $recent[$key]['Post']['public_key'] . '/' . $recent[$key]['Post']['url_title']);
 		}
 		?>
 		</p>
@@ -190,10 +190,10 @@ echo $thumbnail->show(array(
 		<? foreach($recent as $key => $value) : ?>
 		<p>
 	    <? if($recent[$key]['History']['type'] == 'answered') : ?>
-	        <?=$html->link($recent[$key]['Pad']['Post']['title'], '/questions/' . $recent[$key]['Pad']['Post']['public_key'] . '/' . $recent[$key]['Pad']['Post']['url_title']);?>
+	        <?=$this->Html->link($recent[$key]['Pad']['Post']['title'], '/questions/' . $recent[$key]['Pad']['Post']['public_key'] . '/' . $recent[$key]['Pad']['Post']['url_title']);?>
 		<? endif; ?>
 	    <? if($recent[$key]['History']['type'] == 'answered') {
-	        echo $html->link($recent[$key]['Pad']['Post']['title'], '/questions/' . $recent[$key]['Pad']['Post']['public_key'] . '/' . $recent[$key]['Pad']['Post']['url_title']);
+	        echo $this->Html->link($recent[$key]['Pad']['Post']['title'], '/questions/' . $recent[$key]['Pad']['Post']['public_key'] . '/' . $recent[$key]['Pad']['Post']['url_title']);
 		}
 		?>
 		</p>

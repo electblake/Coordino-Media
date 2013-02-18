@@ -36,6 +36,11 @@ class AppController extends Controller {
   public $pageTitle;
   public $Recaptcha;
 
+  public $components = array(
+  	'Auth',
+  	'Session'
+  );
+
 	public function beforeFilter() {
 
 		/**
