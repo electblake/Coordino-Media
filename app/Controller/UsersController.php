@@ -4,7 +4,16 @@ class UsersController extends AppController {
 	var $name = 'Users';
 	var $uses = array('User', 'Post', 'History', 'Setting', 'Widget');
 	var $components = array('Auth', 'Session', 'Cookie', 'Email', 'Recaptcha');
-	var $helpers = array('Time', 'Html', 'Form', 'Javascript', 'Number', 'Thumbnail', 'TrickyFileInput', 'Session', 'Recaptcha');
+	var $helpers = array(
+    'Time',
+    'Html',
+    'Form',
+    'Js',
+    'Number',
+    'Thumbnail',
+    'TrickyFileInput',
+    'Session',
+    'Recaptcha');
 	
 	var $allowedTypes = array(
     	'image/jpeg',

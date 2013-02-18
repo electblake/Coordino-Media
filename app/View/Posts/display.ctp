@@ -26,16 +26,27 @@ foreach($questions as $question) { ?>
 			<div style="float: right;">
 				<div class="thumb_with_border">
 		
-				<?php echo $this->Html->link( $this->Thumbnail->get(array(
-						        'save_path' => WWW_ROOT . 'img/thumbs',
-						        'display_path' => $this->webroot.  'img/thumbs',
-						        'error_image_path' => $this->webroot. 'img/answerAvatar.png',
-						        'src' => WWW_ROOT .  $question['User']['image'],
-						        'w' => 25,
-								'h' => 25,
-								'q' => 100,
-		                        'alt' => $question['User']['username'] . 'picture' )
-			),'/users/' .$question['User']['public_key'].'/'.$question['User']['username'], array('escape' => false));?>
+				<?php
+        if (!empty($question['User']['image'])) {
+          $thumb_options = array(
+            'save_path' => WWW_ROOT . 'img/thumbs',
+            'display_path' => $this->webroot.  'img/thumbs',
+            'error_image_path' => $this->webroot. 'img/answerAvatar.png',
+            'src' => WWW_ROOT .  $question['User']['image'],
+            'w' => 25,
+            'h' => 25,
+            'q' => 100,
+            'alt' => $question['User']['username'] . 'picture'
+          );
+          $thumb_url = $this->Thumbnail->get($thumb_options);
+        } else {
+          $thumb_url = $this->Html->Image('/img/baby.svg', array('width' => 25, 'height' => 25));
+        }
+
+        
+        $link = '/users/' .$question['User']['public_key'].'/'.$question['User']['username'];
+        echo $this->Html->link($thumb_url, $link, array('escape' => false));
+        ?>
 				</div>
 				<div style="float: left; line-height: .9;">
 					<div>
@@ -47,7 +58,7 @@ foreach($questions as $question) { ?>
 			<span style="font-size: 8pt;">&#8226;</span>
 			<h4 style="display: inline;"><?=$question['User']['reputation'];?></h4>
 					</div> 
-			<span class="quiet"><?=$time->timeAgoInWords($question['Post']['timestamp']);?></span>
+			<span class="quiet"><?=$this->Time->timeAgoInWords($question['Post']['timestamp']);?></span>
 				</div>
 				<div style="clear: both;"></div>
 			</div>

@@ -3,7 +3,7 @@
 </p>
 <p>
 	Want to get an account? 
-	<?=$html->link(
+	<?=$this->Html->link(
 			'Register',
 			array('controller' => 'users', 'action' => 'register')
 		);
@@ -11,11 +11,11 @@
 </p>
 <div id="login_panel" class="block_label">
 <?php
-    $session->flash('auth');
-    echo $form->create('User', array('action' => 'login'));
-    echo $form->input('email', array('class' => 'large_input'));
-    echo $form->input('password', array('class' => 'large_input'));
-    echo $form->end('Login');
+    $this->Session->flash('auth');
+    echo $this->Form->create('User', array('action' => 'login'));
+    echo $this->Form->input('email', array('class' => 'large_input'));
+    echo $this->Form->input('password', array('class' => 'large_input'));
+    echo $this->Form->end('Login');
 ?>
 </div>
 <p>
