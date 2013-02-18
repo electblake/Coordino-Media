@@ -34,16 +34,16 @@
 				echo $this->Form->end();
 			?>
 			<ul class="tabs">
-				 <? if($session->check('Auth.User.id')) { ?>
+				 <? if($this->Session->check('Auth.User.id')) { ?>
 					<li>
 						<?=$this->Html->link(
-								$session->read('Auth.User.username'),
-								'/users/' . $session->read('Auth.User.public_key') . '/' . $session->read('Auth.User.username')
+								$this->Session->read('Auth.User.username'),
+								'/users/' . $this->Session->read('Auth.User.public_key') . '/' . $this->Session->read('Auth.User.username')
 							);
 						?>
 					</li>
 				<? } ?>
-				<? if(!$session->check('Auth.User.id')) { ?>
+				<? if(!$this->Session->check('Auth.User.id')) { ?>
 					<li>
 					<?=$this->Html->link(
 							__('login',true),
@@ -52,7 +52,7 @@
 					?>
 					</li>
 				<? } ?>
-				<? if(!$session->check('Auth.User.id') || $session->read('Auth.User.registered') == 0) { ?>
+				<? if(!$this->Session->check('Auth.User.id') || $this->Session->read('Auth.User.registered') == 0) { ?>
 				<li>
 					<?=$this->Html->link(
 							__('register',true),
@@ -68,11 +68,11 @@
 						);
 					?>
 				</li>
-				<? if($session->read('Auth.User.id')) { ?>
+				<? if($this->Session->read('Auth.User.id')) { ?>
 				<li>
 					<?=$this->Html->link(
 							__('settings',true),
-							'/users/settings/' . $session->read('Auth.User.public_key')
+							'/users/settings/' . $this->Session->read('Auth.User.public_key')
 						);
 					?>
 				</li>
@@ -85,7 +85,7 @@
 				        <li><?=$this->Html->link(__('chinese',true),'/lang/chi')?></li>
 				    </ul>
 				</li>
-				<? if($session->check('Auth.User.id') && $session->read('Auth.User.permission') != '') { ?>
+				<? if($this->Session->check('Auth.User.id') && $this->Session->read('Auth.User.permission') != '') { ?>
 				<li>
 					<?=$this->Html->link(
 							__('admin',true),
@@ -132,7 +132,7 @@
 				</li>
 				<? } ?>
 				
-				<? if($session->check('Auth.User.id') && $session->read('Auth.User.registered') == 1) { ?>
+				<? if($this->Session->check('Auth.User.id') && $this->Session->read('Auth.User.registered') == 1) { ?>
 				<li>
 					<?=$this->Html->link(
 							__('logout',true),
@@ -170,7 +170,7 @@
 </div>
 
   <div id="body" class="wrapper">
-    <?php echo $session->flash(); ?>
+    <?php echo $this->Session->flash(); ?>
 	<div id="content" class="wrapper">
 		<?=$content_for_layout;?>
     </div>
