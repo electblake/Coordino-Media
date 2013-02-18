@@ -15,7 +15,7 @@ class PostsController extends AppController {
     'Htmlfilter'
   );
 	public $helpers = array(
-    'Javascript',
+    'Js',
     'Time',
     'Cache',
     'Thumbnail',

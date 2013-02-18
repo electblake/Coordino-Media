@@ -24,5 +24,9 @@
 		public function filter($content) {
 			return $this->htmlFilter->filter($content);
 		}
+
+		public function beforeRender() {
+			
+		}
 	}
 ?>
