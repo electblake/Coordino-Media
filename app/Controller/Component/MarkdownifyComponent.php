@@ -5,17 +5,19 @@
 		 * Define the Markdownify varaible.
 		 */
 		public $markdownify;
-		
+		public $controller;
+
+		public function __construct(ComponentCollection $collection, $settings = array()) {
+			parent::__construct($collection, $settings);
+		}
+
 		/**
 		 * Import the Markdownify vendor files and instantiate the object.
 		 */
-		public function __construct() {
-			
-			/**
-			 * Import the Markdownify vendor files.
-			 */
-			App::import('Vendor', 'markdownify/markdownify');
-			
+		public function initialize($controller) {
+			//App::import('Vendor', 'markdownify/markdownify');
+			App::uses('Markdownify', 'Vendor/Markdownify', array('file' => 'markdownify.php'));
+			$this->controller = $controller;
 			/**
 			 * instantiate the Mardownify object.
 			 */

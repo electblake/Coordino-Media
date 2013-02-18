@@ -5,10 +5,10 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title><?=$title_for_layout;?> | Coordino</title>
-	<?=$html->css('screen.css');?>
-	<?=$html->css('prettify.css');?>
-	<?=$html->script('prettify/prettify.js');?>
-	<?=$html->css('skin.css');?>
+	<?=$this->Html->css('screen.css');?>
+	<?=$this->Html->css('prettify.css');?>
+	<?=$this->Html->script('prettify/prettify.js');?>
+	<?=$this->Html->css('skin.css');?>
 	<!--[if IE]>
 	<style type="text/css">
 	  .wrapper {
@@ -29,14 +29,14 @@
 	<div class="wrapper">
 		<div id="top_actions" class="top_actions">
 			<? 
-				echo $form->create('Post', array('action' => 'display'));
-				echo $form->text('needle', array('value' => 'search', 'onclick' => 'this.value=""'));
-				echo $form->end();
+				echo $this->Form->create('Post', array('action' => 'display'));
+				echo $this->Form->text('needle', array('value' => 'search', 'onclick' => 'this.value=""'));
+				echo $this->Form->end();
 			?>
 			<ul class="tabs">
 				 <? if($session->check('Auth.User.id')) { ?>
 					<li>
-						<?=$html->link(
+						<?=$this->Html->link(
 								$session->read('Auth.User.username'),
 								'/users/' . $session->read('Auth.User.public_key') . '/' . $session->read('Auth.User.username')
 							);
@@ -45,7 +45,7 @@
 				<? } ?>
 				<? if(!$session->check('Auth.User.id')) { ?>
 					<li>
-					<?=$html->link(
+					<?=$this->Html->link(
 							__('login',true),
 							array('controller' => 'users', 'action' => 'login')
 						);
@@ -54,7 +54,7 @@
 				<? } ?>
 				<? if(!$session->check('Auth.User.id') || $session->read('Auth.User.registered') == 0) { ?>
 				<li>
-					<?=$html->link(
+					<?=$this->Html->link(
 							__('register',true),
 							array('controller' => 'users', 'action' => 'register')
 						);
@@ -62,7 +62,7 @@
 				</li>
 				<? } ?>
 				<li>
-					<?=$html->link(
+					<?=$this->Html->link(
 							__('about',true),
 							array('controller' => 'pages', 'action' => 'display', 'about')
 						);
@@ -70,7 +70,7 @@
 				</li>
 				<? if($session->read('Auth.User.id')) { ?>
 				<li>
-					<?=$html->link(
+					<?=$this->Html->link(
 							__('settings',true),
 							'/users/settings/' . $session->read('Auth.User.public_key')
 						);
@@ -80,49 +80,49 @@
 				<li>
 				    <a href='#'><?php __('change language'); ?></a>
 				    <ul>
-				        <li><?=$html->link(__('english',true),'/lang/eng')?></li>
-				        <li><?=$html->link(__('french',true),'/lang/fre')?></li>
-				        <li><?=$html->link(__('chinese',true),'/lang/chi')?></li>
+				        <li><?=$this->Html->link(__('english',true),'/lang/eng')?></li>
+				        <li><?=$this->Html->link(__('french',true),'/lang/fre')?></li>
+				        <li><?=$this->Html->link(__('chinese',true),'/lang/chi')?></li>
 				    </ul>
 				</li>
 				<? if($session->check('Auth.User.id') && $session->read('Auth.User.permission') != '') { ?>
 				<li>
-					<?=$html->link(
+					<?=$this->Html->link(
 							__('admin',true),
 							array('controller' => 'users', 'action' => 'admin')
 						);
 					?>
 					<ul>
 						<li>
-							<?=$html->link(
+							<?=$this->Html->link(
 									ucfirst(__('settings',true)),
 									array('controller' => 'users', 'action' => 'admin')
 								);
 							?>
 						</li>
 						<li>
-							<?=$html->link(
+							<?=$this->Html->link(
 									ucfirst(__('Flagged Posts',true)),
 									array('controller' => 'users', 'action' => 'flagged')
 								);
 							?>
 						</li>
 						<li>
-							<?=$html->link(
+							<?=$this->Html->link(
 									ucfirst(__('User Management',true)),
 									array('controller' => 'users', 'action' => 'admin_list')
 								);
 							?>
 						</li>
 						<li>
-							<?=$html->link(
+							<?=$this->Html->link(
 									ucfirst(__('Blacklist',true)),
 									array('controller' => 'users', 'action' => 'list_blacklist')
 							);
 							?>
 						</li>
 						<li>
-							<?=$html->link(
+							<?=$this->Html->link(
 									ucfirst(__('Remote Settings',true)),
 									array('controller' => 'users', 'action' => 'remote_settings')
 							);
@@ -134,7 +134,7 @@
 				
 				<? if($session->check('Auth.User.id') && $session->read('Auth.User.registered') == 1) { ?>
 				<li>
-					<?=$html->link(
+					<?=$this->Html->link(
 							__('logout',true),
 							array('controller' => 'users', 'action' => 'logout')
 						);
@@ -146,19 +146,19 @@
 	</div>
 
 	<div class="wrapper">
-        <a href="<?=$this->webroot; ?>"><?php echo $html->image('logo.png', array('alt' => 'Logo', 'id' => 'logo')); ?></a>
+        <a href="<?=$this->webroot; ?>"><?php echo $this->Html->image('logo.png', array('alt' => 'Logo', 'id' => 'logo')); ?></a>
 
 		  <ul class="tabs">
 		    <li>
-		    	<?=$html->link(__('Questions',true),'/');?>
+		    	<?=$this->Html->link(__('Questions',true),'/');?>
 		    </li>
-		    <li><?=$html->link(__('Tags',true),'/tags');?></li>
-		    <li><?=$html->link(__('Unsolved',true),'/questions/unanswered');?></li>
-		    <li><?=$html->link(__('Users',true),'/users');?></li>
+		    <li><?=$this->Html->link(__('Tags',true),'/tags');?></li>
+		    <li><?=$this->Html->link(__('Unsolved',true),'/questions/unanswered');?></li>
+		    <li><?=$this->Html->link(__('Users',true),'/users');?></li>
 		  </ul>
 		  <ul class="tabs" style="float: right;">
 			<li>
-				<?=$html->link(
+				<?=$this->Html->link(
 						__('Ask a question',true),
 						array('controller' => 'posts', 'action' => 'ask')
 					);
@@ -186,8 +186,8 @@
 			<? } ?>
 			<?=$widget['Widget']['content'];?>
 		<? if(isset($admin) && $admin) { ?>
-			<?=$html->link(__('edit', true),'/widgets/edit/' . $widget['Widget']['id'], array('title' => __('Edit this Widget', true)));?>	| 
-			<?=$html->link(__('del', true),'/widgets/delete/' . $widget['Widget']['id'], array('title' => __('Delete Widget', true)));?>	
+			<?=$this->Html->link(__('edit', true),'/widgets/edit/' . $widget['Widget']['id'], array('title' => __('Edit this Widget', true)));?>	| 
+			<?=$this->Html->link(__('del', true),'/widgets/delete/' . $widget['Widget']['id'], array('title' => __('Delete Widget', true)));?>	
 		<? } ?>
 		  </div>
 		<?
@@ -196,8 +196,8 @@
         
 	    if(isset($admin) && $admin):
     ?>
-	    <?=$html->link($html->image('icons/plugin_edit.png', array('alt' => __('Edit', true))) . __('add widgets to this page', true),
-			'/widgets/add' . $html->url(null, false),
+	    <?=$this->Html->link($this->Html->image('icons/plugin_edit.png', array('alt' => __('Edit', true))) . __('add widgets to this page', true),
+			'/widgets/add' . $this->Html->url(null, false),
 			array('escape' => false)
 		); ?>
         <? endif; ?>
@@ -210,12 +210,12 @@
 	<div class="left">
     <ul class="tabs">
       <li>
-      <?=$html->link(__('home',true),'/');?></li>
+      <?=$this->Html->link(__('home',true),'/');?></li>
 	  <li>
-      <?=$html->link(__('ask a question',true),'/questions/ask');?></li>
+      <?=$this->Html->link(__('ask a question',true),'/questions/ask');?></li>
 
       <li>
-      <?=$html->link(__('about',true),'/about');?></li>
+      <?=$this->Html->link(__('about',true),'/about');?></li>
     </ul>
 
 	</div>
