@@ -1,6 +1,54 @@
 {
-    "hash": "fbcdfdb9e1dd6b5263ced2ff4d9036f9",
+    "hash": "9ec09d44ee051ca8d84da665a0e06592",
     "packages": [
+        {
+            "name": "cakephp/debug_kit",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cakephp/debug_kit.git",
+                "reference": "d79afcc32472135858852a18d9d3a1e8a70dc453"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cakephp/debug_kit/zipball/d79afcc32472135858852a18d9d3a1e8a70dc453",
+                "reference": "d79afcc32472135858852a18d9d3a1e8a70dc453",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "*",
+                "php": ">=5.3.0"
+            },
+            "time": "2013-02-16 14:44:00",
+            "type": "cakephp-plugin",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mark Story",
+                    "homepage": "http://mark-story.com",
+                    "role": "Author"
+                },
+                {
+                    "name": "CakePHP Community",
+                    "homepage": "https://github.com/cakephp/debug_kit/graphs/contributors"
+                }
+            ],
+            "description": "CakePHP Debug Kit",
+            "homepage": "https://github.com/cakephp/debug_kit",
+            "keywords": [
+                "cakephp",
+                "debug",
+                "kit"
+            ]
+        },
         {
             "name": "composer/installers",
             "version": "dev-master",
@@ -319,6 +367,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "edlcdmc/lib-phpthumb": 20,
-        "uzyn/composer": 20
+        "uzyn/composer": 20,
+        "cakephp/debug_kit": 20
     }
 }

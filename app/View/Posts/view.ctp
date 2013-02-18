@@ -1,8 +1,8 @@
 <?	
 	echo $this->Html->css('wmd.css');
-	echo $this->Js->link('wmd/showdown.js');
-	echo $this->Js->link('wmd/wmd.js');
-	echo $this->Js->link('jquery/jquery.js');
+	echo $this->Html->script('wmd/showdown.js');
+	echo $this->Html->script('wmd/wmd.js');
+	echo $this->Html->script('jquery/jquery.js');
 ?>
 <script> //<![CDATA[    
   // When the page is ready
@@ -307,7 +307,7 @@
 		<?=$this->Form->text('User.email', array('class' => 'big_input medium_input '));?><br/>		
 	<? } ?>
 	
-	<?$recaptcha->display_form('echo');?>
+	<?$this->Recaptcha->display_form('echo');?>
 	
 	<br/>
 	<?=$this->Form->end(__d('verb','Answer',true));?>

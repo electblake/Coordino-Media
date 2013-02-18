@@ -28,7 +28,7 @@
 	<?=$this->Form->input('email', array('class' => 'large_input'));?>
 
 	<?=$this->Form->input('secret', array('type' => 'password', 'label' => 'Password', 'class' => 'large_input'));?> 
-	<?//$recaptcha->display_form('echo');?>
+	<?=$this->Recaptcha->display_form('echo');?>
 	<?=$this->Form->end('Register');?>
 	</div>
 <? } ?>

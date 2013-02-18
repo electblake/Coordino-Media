@@ -1,5 +1,8 @@
 <?php 
  class RecaptchaComponent extends Component {
+
+  private $active = false;
+
 	var $publickey = "";
 	var $privatekey= "";
 	
@@ -19,6 +22,11 @@
 	}
 	
 	function valid($form){
+
+    if (Configure::read('Recaptcha.open') == true) {
+      return true;
+    }
+
         if (isset($form['recaptcha_challenge_field']) && isset($form['recaptcha_response_field'])){
         	if($this->recaptcha_check_answer(
                 $this->privatekey, 

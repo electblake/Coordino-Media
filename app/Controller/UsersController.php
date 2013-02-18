@@ -3,7 +3,16 @@ class UsersController extends AppController {
 
 	var $name = 'Users';
 	var $uses = array('User', 'Post', 'History', 'Setting', 'Widget');
-	var $components = array('Auth', 'Session', 'Cookie', 'Email', 'Recaptcha');
+	var $components = array(
+    'Auth' => array(
+      'loginRedirect' => array('controller' => 'posts', 'action' => 'display'),
+      'logoutRedirect' => array('controller' => 'pages', 'action' => 'display', 'home')
+    ),
+    'Session',
+    'Cookie', 
+    'Email', 
+    'Recaptcha'
+  );
 	var $helpers = array(
     'Time',
     'Html',
@@ -23,6 +32,8 @@ class UsersController extends AppController {
     	'image/x-png'
   	);
 
+  public $user_data;
+
 	public function beforeRender() {
 		$this->getWidgets();
 		$this->underMaintenance();
@@ -30,10 +41,11 @@ class UsersController extends AppController {
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-        $this->Auth->fields = array(
-            'username' => 'email', 
-            'password' => 'password'
-            );
+    //Debugger::dump($this->Auth->User());
+    $this->Auth->authenticate = array(
+      'Form' => array('fields' => array(
+        'username' => 'email',
+        'password' => 'password')));
 		$this->getWidgets();
 		$this->isAdmin();
 
@@ -46,6 +58,14 @@ class UsersController extends AppController {
 		if($this->Setting->getValue('remote_auth_only') == 'yes') {
 			$this->redirect($this->Setting->getValue('remote_auth_login_url'));
 		}
+
+    if ($this->request->is('post')) {
+      if ($this->Auth->login()) {
+          $this->redirect($this->Auth->redirect());
+      } else {
+          $this->Session->setFlash(__('Invalid username or password, try again'));
+      }
+    }
 	}
 	
 	// public function edit($id = null) {
@@ -63,19 +83,20 @@ class UsersController extends AppController {
 	// }
 	
 	public function lost_password() {
-		if(!empty($this->data)) {
+		if(!empty($this->request->data)) {
 			$email_exists = $this->User->find(
 				'first', array(
 					'conditions' => array(
-						'email' => $this->data['User']['email']	
+						'email' => $this->request->data['User']['email']	
 					)
 				)
 			);
 			if(!empty($email_exists)) {
 				$pass = rand(8, 12);
-				$this->data['User']['password'] = $this->Auth->password($pass);
-				$this->data['User']['id'] = $email_exists['User']['id'];
-				$this->User->save($this->data);
+        $this->user_data = $this->request->data;
+				$this->user_data['User']['password'] = $this->Auth->password($pass);
+				$this->user_data['User']['id'] = $email_exists['User']['id'];
+				$this->User->save($this->user_data);
 				$this->set('user', $email_exists);
 				$this->set('password', $pass);
 				$this->Email->from = 'Answerman <answers@' . $_SERVER['SERVER_NAME'] . '>'; /* TODO: ideally, this would come from settings */
@@ -211,7 +232,7 @@ class UsersController extends AppController {
 		/**
 		 * If the user has an unregistered account update the password and set them to registered.
 		 */
-		if(!empty($this->data)) {
+		if(!empty($this->request->data)) {
 
 			if($this->Recaptcha->valid($this->params['form']) || $this->Session->read('Auth.User.id')) {
 			
@@ -220,7 +241,7 @@ class UsersController extends AppController {
 			 */
 			if($this->Auth->user('id')) {
 				$user = $this->User->read(null, $this->Auth->user('id'));
-				$user['User']['password'] = $this->Auth->password($this->data['User']['secret']);
+				$user['User']['password'] = $this->Auth->password($this->request->data['User']['secret']);
 				$user['User']['registered'] = '1';
 				
 				/**
@@ -240,15 +261,16 @@ class UsersController extends AppController {
 				/**
 				 * Register a new user
 				 */
-				$this->data['User']['password'] = $this->Auth->password($this->data['User']['secret']);
+        $this->user_data = $this->request->data;
+				$this->user_data['User']['password'] = $this->Auth->password($this->user_data['User']['secret']);
 
-				$this->data['User']['registered'] = '1';
-				$this->data['User']['public_key'] = uniqid();
-				$this->data['User']['joined'] = time();
-				$this->data['User']['url_title'] = $this->Post->niceUrl($this->data['User']['username']);
+				$this->user_data['User']['registered'] = '1';
+				$this->user_data['User']['public_key'] = uniqid();
+				$this->user_data['User']['joined'] = time();
+				$this->user_data['User']['url_title'] = $this->Post->niceUrl($this->user_data['User']['username']);
 
-				if($this->User->save($this->data)) {
-					$this->Auth->login($this->data);
+				if($this->User->save($this->user_data)) {
+					$this->Auth->login($this->user_data);
 					$this->redirect('/');
 				}
 			}

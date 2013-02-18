@@ -4,6 +4,10 @@ class RecaptchaHelper extends AppHelper {
 	var $helpers = array('form'); 
 	
 	function display_form($output_method = 'return', $error = null, $use_ssl = false){
+
+		if (Configure::read('Recaptcha.open') == true) {
+      return true;
+    }
 		$data = $this->__form(Configure::read("Recaptcha.pubKey"),$error,$use_ssl);
 		if($output_method == "echo")
 			echo $data;
