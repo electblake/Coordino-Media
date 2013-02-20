@@ -1,6 +1,6 @@
 <div>
 		<h3><?php __('Profile Image'); ?></h3>
-		<?=$thumbnail->show(array(
+		<?=$this->Thumbnail->show(array(
 						        'save_path' => WWW_ROOT . 'img/thumbs',
 						        'display_path' => $this->webroot.  'img/thumbs',
 						        'error_image_path' => $this->webroot. 'img/answerAvatar.png',
@@ -11,7 +11,7 @@
 		                        'alt' => $user_info['User']['username'] . 'picture' )
 			);
 		?>
-	<?=$trickyFileInput->draw('picker', array(
+	<?=$this->TrickyFileInput->draw('picker', array(
 								'form' => array(
 									'id' => 'User' . $user_info['User']['public_key'] . 'ImageChangeForm',
 									'name' => 'User' . $user_info['User']['public_key'] . 'ImageChangeForm',

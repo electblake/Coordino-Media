@@ -14,7 +14,7 @@
 ?>
             <td style="width: 200px; padding: 5px;">
                 <div class="tag">
-                <?=$html->link(
+                <?=$this->Html->link(
 				$tag[$key]['tag'],
 				'/tags/' . $tag[$key]['tag']
 			);

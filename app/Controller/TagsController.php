@@ -3,7 +3,7 @@ class TagsController extends AppController {
 
 	var $name = 'Tags';
     var $uses = array('Tag', 'Post', 'Setting', 'Widget');
-    var $helpers = array('Form', 'Time', 'Html', 'Javascript');
+    var $helpers = array('Form', 'Time', 'Html', 'Js');
 	
 	public function beforeRender() {
 		$this->getWidgets();
