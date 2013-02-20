@@ -348,7 +348,7 @@ class Post extends AppModel {
     }
 
     public function correctRedirect($public_key) {
-        $this->Post->recursive = -1;
+        $this->recursive = -1;
         $post = $this->find(
             'first', array(
                 'conditions' => array('Post.public_key' => $public_key),                          
