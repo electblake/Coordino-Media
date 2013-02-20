@@ -3,7 +3,8 @@ class PostsController extends AppController {
 
 	var $name = 'Posts';
 	var $uses = array('Post', 'User', 'Answer', 'History', 'Setting', 'Tag', 'PostTag', 'Vote', 'Widget');
-  
+  var $post_data;
+
 	public $components = array(
     'Auth',
     'Session',
@@ -65,7 +66,7 @@ class PostsController extends AppController {
 	public function ask() {
 		$this->set('title_for_layout', __('Ask a question',true));
 		
-		if(!empty($this->data)) {
+		if(!empty($this->request->data)) {
 			
 			/**
 			 * reCAPTCHA Check
@@ -90,7 +91,7 @@ class PostsController extends AppController {
 				} else {
 					$userId = $this->Auth->user('id');
 				}
-				$post = $this->__postSave('question', $userId, $this->data);
+				$post = $this->__postSave('question', $userId, $this->request->data);
 			
 				$this->redirect('/questions/' . $post['public_key'] . '/' . $post['url_title']);
 		}
@@ -189,7 +190,6 @@ class PostsController extends AppController {
 				'errors' => $validationErrors,
 				'data' => $data
 				);
-      //Debugger::dump($errors);
 			$this->Session->write(array('errors' => $errors));
 			$this->redirect($redirectUrl);
 		}
@@ -208,20 +208,20 @@ class PostsController extends AppController {
 		/**
 		 * Add in required Post data
 		 */
-		$this->data['Post']['type'] = $type;
-		$this->data['Post']['user_id'] = $userId;
-		$this->data['Post']['timestamp'] = time();
+		$data['Post']['type'] = $type;
+		$data['Post']['user_id'] = $userId;
+		$data['Post']['timestamp'] = time();
 
 		if($type == 'question') {
-			$this->data['Post']['url_title'] = $this->Post->niceUrl($this->data['Post']['title']);
+			$data['Post']['url_title'] = $this->Post->niceUrl($data['Post']['title']);
 		}
 		if($type == 'answer') {
-			$this->data['Post']['related_id'] = $relatedId;
+			$data['Post']['related_id'] = $relatedId;
 		}
 
-		$this->data['Post']['public_key'] = uniqid();
+		$data['Post']['public_key'] = uniqid();
 
-		if(!empty($this->data['Post']['tags'])) {
+		if(!empty($data['Post']['tags'])) {
 			$this->Post->Behaviors->attach('Tag', array('table_label' => 'tags', 'tags_label' => 'tag', 'separator' => ', '));
 		}
 
@@ -229,15 +229,14 @@ class PostsController extends AppController {
 		/**
 		 * Filter out any nasty XSS
 		 */
-		Configure::write('debug', 0);
-		$this->data['Post']['content'] = str_replace('<code>', '<code class="prettyprint">', $this->data['Post']['content']);
-		$this->data['Post']['content'] = @$this->Htmlfilter->filter($this->data['Post']['content']);
-		
+		//Configure::write('debug', 0);
+		$data['Post']['content'] = str_replace('<code>', '<code class="prettyprint">', $data['Post']['content']);
+		$data['Post']['content'] = $this->Htmlfilter->filter($data['Post']['content']);
 		/**
 		 * Spam Protection
 		 */ 
 		$flags = 0;
-		$content = strip_tags($this->data['Post']['content']);
+		$content = strip_tags($data['Post']['content']);
 		// Get links in the content
 		$links = preg_match_all("#(^|[\n ])(?:(?:http|ftp|irc)s?:\/\/|www.)(?:[-A-Za-z0-9]+\.)+[A-Za-z]{2,4}(?:[-a-zA-Z0-9._\/&=+%?;\#]+)#is", $content, $matches);
 		$links = $matches[0];

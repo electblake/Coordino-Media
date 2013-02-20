@@ -1,6 +1,6 @@
 <?
 	class HtmlfilterComponent extends Component {
-		public $htmlFilter;
+		public $HtmlFilter;
 		public $controller;
 		/**
 		 * Import the HTML Filter vendor files and instantiate the object.
@@ -10,17 +10,13 @@
 			/**
 			 * Import the Markdownify vendor files.
 			 */
-			//App::import('Vendor', 'htmlfilter/htmlfilter');
-			//$this->htmlFilter = new HtmlFilter;
-			
-
 			App::uses('HtmlFilter', 'Vendor/HtmlFilter', array('file' => 'htmlfilter.php'));
 			$this->controller = $controller;
-			$this->controller->htmlFilter = new HtmlFilter;
+			$this->HtmlFilter = new HtmlFilter;
 		}
 		
 		public function filter($content) {
-			return $this->htmlFilter->filter($content);
+			return $this->HtmlFilter->filter($content);
 		}
 	}
 ?>

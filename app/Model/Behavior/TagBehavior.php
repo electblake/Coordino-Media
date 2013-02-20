@@ -30,7 +30,7 @@ class TagBehavior extends ModelBehavior {
             $this->settings[$model->name] = $default;
         }
         
-    $this->settings[$model->name] = array_merge($this->settings[$model->name], ife(is_array($settings), $settings, array()));
+    $this->settings[$model->name] = array_merge($this->settings[$model->name], is_array($settings) ? $settings : array());
 
     }
     

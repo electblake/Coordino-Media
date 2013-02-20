@@ -9,8 +9,6 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "mustache/mustache": "v2.0.2",
-        "edlcdmc/lib-phpthumb": "dev-master",
         "electblake/cakeless": "1.0.1",
         "uzyn/composer": "dev-master",
         "masterexploder/PHPThumb": "2.*",

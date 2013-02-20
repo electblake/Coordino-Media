@@ -191,6 +191,7 @@ class HtmlParser {
         if ($this->look() === '>') {
             $this->match('>');
         }
+        
         $this->fireOpenTag($tagName, $attributes);
         if ($closeTag) {
             $this->fireCloseTag($tagName);
