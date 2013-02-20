@@ -5,29 +5,30 @@
         'jquery/jquery.tabs.js',
         'jquery/jquery.ui-1.7.2.js',
         'jquery/ui.core.js'
-        )); 
+      ));
  ?>	
 
-	<script type="text/javascript">
-	 $(function() { $("#tabs").tabs(); }); 
-	</script>
+<script type="text/javascript">
+ $(function() { $("#tabs").tabs(); }); 
+</script>
 <script type="text/javascript">
 $(document).ready(function(){
-$('#tabs div').hide(); // Hide all divs
-$('#tabs div:first').show(); // Show the first div
-$('#tabs ul li').addClass('inactive'); // set all links to inactive
-$('#tabs ul li:first').removeClass('inactive'); //remove inactive class from first link...
-$('#tabs ul li:first').addClass('active'); // ...and set the class of the first link to active
-$('#tabs ul li a').click(function(){ //When any link is clicked
-	$('#tabs ul li').removeClass('active'); // Remove active class from all links
-	$('#tabs ul li').removeClass('inactive');	
-	$('#tabs ul li').addClass('inactive'); // set all links to inactive
-	$(this).parent().removeClass('inactive'); //remove inactive class from the link that was clicke
-	$(this).parent().addClass('active'); //Set clicked link class to active
-	var currentTab = $(this).attr('href'); // Set variable currentTab to value of href attribute of clicked link
 	$('#tabs div').hide(); // Hide all divs
-	$(currentTab).show(); // Show div with id equal to variable currentTab
-	return false;
+	$('#tabs div:first').show(); // Show the first div
+	$('#tabs ul li').addClass('inactive'); // set all links to inactive
+	$('#tabs ul li:first').removeClass('inactive'); //remove inactive class from first link...
+	$('#tabs ul li:first').addClass('active'); // ...and set the class of the first link to active
+	$('#tabs ul li a').click(function(e){ //When any link is clicked
+		$('#tabs ul li').removeClass('active'); // Remove active class from all links
+		$('#tabs ul li').removeClass('inactive');	
+		$('#tabs ul li').addClass('inactive'); // set all links to inactive
+		$(this).parent().removeClass('inactive'); //remove inactive class from the link that was clicke
+		$(this).parent().addClass('active'); //Set clicked link class to active
+		var currentTab = $(this).attr('href'); // Set variable currentTab to value of href attribute of clicked link
+		$('#tabs div').hide(); // Hide all divs
+		$(currentTab).show(); // Show div with id equal to variable currentTab
+		e.preventDefault();
+		return false;
 	});
 });
 </script>
@@ -36,15 +37,20 @@ $('#tabs ul li a').click(function(){ //When any link is clicked
 		<? if(empty($user['User']['image'])) { ?>
 			<?=$this->Html->image('answerAvatar.png'); ?>
 		<? }else { 
-echo $this->Thumbnail->show(array(
-						        'save_path' => WWW_ROOT . 'img/thumbs',
-						        'display_path' => $this->webroot.  'img/thumbs',
-						        'error_image_path' => $this->webroot. 'img/answerAvatar.png',
-						        'src' => WWW_ROOT .  $user['User']['image'],
-						        'w' => 130,
+
+				$src = array_filter(explode('/', WWW_ROOT));
+				$src = array_merge($src, array_filter(explode('/', $user['User']['image'])));
+				$src = '/'.implode('/', $src);
+
+				echo $this->Thumbnail->show(array(
+				        'save_path' => WWW_ROOT . 'img/thumbs',
+				        'display_path' => $this->webroot.  'img/thumbs',
+				        'error_image_path' => $this->webroot. 'img/answerAvatar.png',
+				        'src' => $src,
+				        'w' => 130,
 								'h' => 130,
 								'q' => 100,
-		                        'alt' => $user['User']['username'] . ' picture' )
+                'alt' => $user['User']['username'] . ' picture' )
 			);
 		} ?>
 	</div>

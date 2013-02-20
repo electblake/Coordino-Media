@@ -306,7 +306,7 @@ class UsersController extends AppController {
         );
         $this->set('settings', $settings);
 
-        if($this->data) {
+        if($this->request->data) {
             foreach($this->data['Setting'] as $key => $value) {
                 $data = array(
                     'id' => $key + 1,
@@ -359,7 +359,7 @@ class UsersController extends AppController {
             'first', array('conditions' => array('Post.public_key' => $public_key),
                            'fields' => array('Post.id'))
         );
-        $this->Post->del($post_id['Post']['id']);
+        $this->Post->delete($post_id['Post']['id']);
         $this->Session->setFlash('Post deleted successfully!', 'error');
         $this->redirect('/admin/flagged');
     }

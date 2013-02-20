@@ -20,12 +20,12 @@ foreach($questions as $question) { ?>
 	<div class="wrapper" style="float: left; width: 550px;">
 		<div class="list_title  wrapper">
         <? if($question['Post']['related_id'] != 0) {
-		        echo $html->link(
+		        echo $this->Html->link(
 				    'View this answer (answers have no titles)',
 				    '/questions/' . $question['Post']['public_key'] . '/' . $question['Post']['url_title']
 			    );
             }else {
-                echo $html->link(
+                echo $this->Html->link(
                     $question['Post']['title'],
                     '/questions/' . $question['Post']['public_key'] . '/' . $question['Post']['url_title']
                 );
@@ -34,8 +34,8 @@ foreach($questions as $question) { ?>
 		</div>
 		<div class="wrapper">
 			<div id="list_user_info" style="float: right;">
-			<span class="quiet"><?=$time->timeAgoInWords($question['Post']['timestamp']);?></span>
-			<?=$html->link(
+			<span class="quiet"><?=$this->Time->timeAgoInWords($question['Post']['timestamp']);?></span>
+			<?=$this->Html->link(
 					$question['User']['username'],
 					'/users/' . $question['User']['public_key'] . '/' . $question['User']['username']
 				);
@@ -45,7 +45,7 @@ foreach($questions as $question) { ?>
 		<div class="wrapper tags">
 		<? foreach($question['Tag'] as $tag) { ?>
 			<div class="tag wrapper">
-				<?=$html->link(
+				<?=$this->Html->link(
 						$tag['tag'],
 						'/tags/' . $tag['tag']
 					);

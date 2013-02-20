@@ -50,37 +50,23 @@ class ThumbnailHelper extends Helper    {
     }
     
     private function create_thumb()    {
-
-        if (empty($this->options['src'])) {
+        if (!empty($this->options['src'])) {
             $src = $this->options['src'];
         } else {
             return false;
         }
-        $this->php_thumb = new PHPThumb\GD($src);
 
+        $this->php_thumb = new PHPThumb\GD($src);
 
         $x = !empty($this->options['w']) ? $this->options['w'] : null;
         $y = !empty($this->options['h']) ? $this->options['h'] : null;
 
-        //$thumb = new PHPThumb\GD(__DIR__ .'/../tests/resources/test.jpg');
         if (!empty($x) || !empty($y)) {
-            $this->php_thumb->crop($x, $y);    
+            $this->php_thumb->crop(0, 0, $x, $y); 
         }
         
-        $this->php_thumb->show();
-
-
-        // foreach($this->php_thumb as $var => $value) {
-        //     if(isset($this->options[$var]))    {
-        //         $this->php_thumb->setParameter($var, $this->options[$var]);
-        //     }
-        // }
-        
-        if($this->php_thumb->show()) {
-            $filename = $this->options['save_path'];
-            $filename .= basename($this->options['src']);
-            die($filename);
-            $this->php_thumb->save($filename);
+        if ($this->php_thumb->save($this->cache_filename)) {
+            return true;
         } else {
             $this->error = true;
         }
@@ -104,6 +90,7 @@ class ThumbnailHelper extends Helper    {
         $this->init($options, $tag_options);
         if(!$this->image_is_cached())    {
             $this->create_thumb();
+            //Debugger::dump($options);
         }
         return $this->get_image_tag();
     }
