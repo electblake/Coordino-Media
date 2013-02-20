@@ -1,4 +1,5 @@
 <?php
+App::uses('AppController', 'Controller');
 class UsersController extends AppController {
 
 	var $name = 'Users';
@@ -6,7 +7,7 @@ class UsersController extends AppController {
 	var $components = array(
     'Auth' => array(
       'loginRedirect' => array('controller' => 'posts', 'action' => 'display'),
-      'logoutRedirect' => array('controller' => 'pages', 'action' => 'display', 'home')
+      'logoutRedirect' => array('controller' => 'posts', 'action' => 'displsy')
     ),
     'Session',
     'Cookie', 
@@ -41,7 +42,6 @@ class UsersController extends AppController {
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-    //Debugger::dump($this->Auth->User());
     $this->Auth->authenticate = array(
       'Form' => array('fields' => array(
         'username' => 'email',
@@ -49,8 +49,9 @@ class UsersController extends AppController {
 		$this->getWidgets();
 		$this->isAdmin();
 
-		$this->Auth->allow('view', 'register', 'userbar', 'remoteLogin', 'users', 'mini_user_search', 'lost_password',
-		'userList', 'miniSearch');
+		$this->Auth->allow(
+      'view', 'register', 'userbar', 'remoteLogin', 'users', 'mini_user_search', 
+      'lost_password', 'userList', 'miniSearch');
 
 	}
 

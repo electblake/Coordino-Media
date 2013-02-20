@@ -1,4 +1,34 @@
 <?php
+/**
+ * Static content controller.
+ *
+ * This file will render views from views/pages/
+ *
+ * PHP 5
+ *
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
+ * @package       app.Controller
+ * @since         CakePHP(tm) v 0.2.9
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+
+App::uses('AppController', 'Controller');
+
+/**
+ * Static content controller
+ *
+ * Override this controller by placing a copy in controllers directory of an application
+ *
+ * @package       app.Controller
+ * @link http://book.cakephp.org/2.0/en/controllers/pages-controller.html
+ */
 class PostsController extends AppController {
 
 	var $name = 'Posts';
@@ -42,7 +72,8 @@ class PostsController extends AppController {
 		$this->Cookie->key = 'MZca3*f113vZ^%v ';
 
 		/**
-		 * If a user leaves the site and the session ends they will be relogged in with their cookie information if available.
+		 * If a user leaves the site and the session ends they will be relogged in with their cookie
+     * information if available.
 		 */
 		if($this->Cookie->read('User')) {
 			$this->Auth->login($this->Cookie->read('User'));
@@ -54,10 +85,10 @@ class PostsController extends AppController {
 	}
 
 	public function delete($id) {
-        if(!$this->isAdmin($this->Auth->user('id'))) {
+    if(!$this->isAdmin($this->Auth->user('id'))) {
 			$this->Session->setFlash(__('You do not have permission to access that..',true), 'error');
 			$this->redirect('/');
-        }
+    }
 		$this->Post->delete($id);
 		$this->Session->setFlash(__('Post deleted',true), 'error');
 		$this->redirect('/');
@@ -103,11 +134,11 @@ class PostsController extends AppController {
 		$question = $this->Post->findByPublicKey($public_key);
 		
 		if(!empty($this->data)) {
-				$this->data['reCAPTCHA'] = $this->params['form'];
-				$this->__validatePost($this->data, '/questions/' . $question['Post']['public_key'] . '/' . $question['Post']['url_title'] . '#user_answer', true);
+				$this->request->data['reCAPTCHA'] = $this->params['form'];
+				$this->__validatePost($this->request->data, '/questions/' . $question['Post']['public_key'] . '/' . $question['Post']['url_title'] . '#user_answer', true);
 				
-				if(!empty($this->data['User'])) {
-					$user = $this->__userSave(array('User' => $this->data['User']));
+				if(!empty($this->request->data['User'])) {
+					$user = $this->__userSave(array('User' => $this->request->data['User']));
 					$this->Auth->login($user);
 				}
 		
@@ -125,9 +156,9 @@ class PostsController extends AppController {
                 	)
                 );
                 
-                $post = $this->__postSave('answer', $userId, $this->data, $question['Post']['id']);
+                $post = $this->__postSave('answer', $userId, $this->request->data, $question['Post']['id']);
                	
-                if(($question['Post']['notify'] == 1) && ($post['flags'] < $flag_limit['Setting']['value'])) {
+                if(!empty($post['flags']) && ($question['Post']['notify'] == 1) && ($post['flags'] < $flag_limit['Setting']['value'])) {
                     $user = $this->User->find(
                         'first', array(
                             'conditions' => array(
@@ -140,7 +171,7 @@ class PostsController extends AppController {
                 $this->set('question', $question);
                 $this->set('username', $username);
                 $this->set('dear', $user['User']['username']);
-                $this->set('answer', $this->data['Post']['content']);
+                $this->set('answer', $this->request->data['Post']['content']);
                 $this->Email->from = 'Answerman <answers@' . $_SERVER['SERVER_NAME'] . '>';
                 $this->Email->to = $user['User']['email'];
                 $this->Email->subject = __('Your question has been answered!',true);
@@ -159,7 +190,8 @@ class PostsController extends AppController {
 
 	/**
 	 * Validates the Post data.
-	 * Since Posts need to validate for both logged in and non logged in accounts a separate validation technique was needed.
+	 * Since Posts need to validate for both logged in and non logged in accounts a separate validation
+   * technique was needed.
 	 *
 	 * @param string $data
 	 * @param string $redirectUrl
@@ -337,7 +369,7 @@ class PostsController extends AppController {
                 $this->User->save(array('id' => $userId, 'answer_count' => $user_info['User']['answer_count'] + 1));
             }
 
-            //$post = $this->post_data['Post'];
+            //x$post = $this->post_data['Post'];
 
 			/**
 			 * Hack to normalize data.
@@ -395,7 +427,7 @@ class PostsController extends AppController {
 	 */
 	public function view($public_key) {
 
-                /**
+     /**
 		 * Set the Post model to recursive 2 so we can pull back the User's information with each comment.
 		 */
 		$this->Post->recursive = 2;
@@ -486,12 +518,19 @@ class PostsController extends AppController {
                     'fields' => array('Tag.tag')
                 )
             );
-            if($key == 0) {
-                $tag_list = $tag_names[$key]['Tag']['tag'];
-            }else {
-                $tag_list = $tag_list . ', ' . $tag_names[$key]['Tag']['tag'];
-            }
+            $tag_list[] = $tag_names[$key]['Tag']['tag'];
+            // if($key == 0) {
+            //     $tag_list = $tag_names[$key]['Tag']['tag'];
+            // }else {
+            //     $tag_list = $tag_list . ', ' . $tag_names[$key]['Tag']['tag'];
+            // }
         }
+        if (!empty($tag_list) && is_array($tag_list)) {
+          $tag_list = implode(', ', $tag_list);
+        } else {
+          $tag_list = '';
+        }
+        
         $this->set('tags', $tag_list);
         }
 
@@ -499,13 +538,13 @@ class PostsController extends AppController {
 			$this->Post->Behaviors->attach('Tag', array('table_label' => 'tags', 'tags_label' => 'tag', 'separator' => ', '));
 		}
 
-		if(!empty($this->data)) {
-			$this->data['Post']['id'] = $question['Post']['id'];
-			if(!empty($this->data['Post']['title'])) {
-				$this->data['Post']['url_title'] = $this->Post->niceUrl($this->data['Post']['title']);
+		if(!empty($this->request->data)) {
+			$this->request->data['Post']['id'] = $question['Post']['id'];
+			if(!empty($this->request->data['Post']['title'])) {
+				$this->request->data['Post']['url_title'] = $this->Post->niceUrl($this->request->data['Post']['title']);
 			}
-			$this->data['Post']['last_edited_timestamp'] = time();
-			if($this->Post->save($this->data)) {
+			$this->request->data['Post']['last_edited_timestamp'] = time();
+			if($this->Post->save($this->request->data)) {
                 $this->History->record('edited', $this->Post->id, $this->Auth->user('id'));
 				$this->redirect('/questions/' . $redirect['Post']['public_key'] . '/' . $redirect['Post']['url_title']);
 			}

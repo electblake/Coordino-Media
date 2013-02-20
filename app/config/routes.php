@@ -115,4 +115,16 @@ if (file_exists(TMP.'installed.txt')) {
 	Router::connect('/install/run-sql', array('controller' => 'installer', 'action' => 'run_sql'));
 	Router::connect('/install/admin-account', array('controller' => 'installer', 'action' => 'admin_account'));
 }
+
+/**
+ * Load all plugin routes.  See the CakePlugin documentation on
+ * how to customize the loading of plugin routes.
+ */
+  CakePlugin::routes();
+
+/**
+ * Load the CakePHP default routes. Only remove this if you do not want to use
+ * the built-in default routes.
+ */
+  require CAKE . 'Config' . DS . 'routes.php';
 ?>
