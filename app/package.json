@@ -1,0 +1,8 @@
+{
+  "name": "coordio",
+  "description": "various nodejs packages for mostly local development",
+  "dependencies": {
+    "uglify-js": "~2.2.5",
+    "recess": "~1.1.6"
+  }
+}

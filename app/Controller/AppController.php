@@ -38,8 +38,14 @@ class AppController extends Controller {
 
   public $components = array(
   	'Auth',
-  	'Session'
+  	'Session',
+  	'Cakeless.Cakeless'
   );
+  public $helper = array(
+  	'Html' => array('className' => 'TwitterBootstrap.BootstrapHtml'),
+		'Form' => array('className' => 'TwitterBootstrap.BootstrapForm'),
+		'Paginator' => array('className' => 'TwitterBootstrap.BootstrapPaginator')
+	);
 
 	public function beforeFilter() {
 
@@ -48,6 +54,18 @@ class AppController extends Controller {
 		 */
 		$this->Recaptcha->publickey =  Configure::read('recaptcha.publickey');
 	  $this->Recaptcha->privatekey = Configure::read('recaptcha.privatekey');
+
+	  $this->initLess();
+
+	}
+
+	public function initLess() {
+
+		$files['app.less'] = 'app.css';
+		$files['bootstrap/responsive.less'] = 'responsive.css';
+		$this->Cakeless->compile_files($files);
+
+		
 	}
 
 	public function getWidgets($page='') {

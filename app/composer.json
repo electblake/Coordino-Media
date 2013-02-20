@@ -12,7 +12,9 @@
         "electblake/cakeless": "1.0.1",
         "uzyn/composer": "dev-master",
         "masterexploder/PHPThumb": "2.*",
-        "cakephp/debug_kit": "2.2.*@dev"
+        "cakephp/debug_kit": "2.2.*@dev",
+        "slywalker/twitter_bootstrap": "dev-master",
+        "twitter/bootstrap": "dev-master"
     },
     "repositories": [
         {

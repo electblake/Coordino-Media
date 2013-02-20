@@ -5,10 +5,12 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title><?php echo $title_for_layout; ?> | Coordino</title>
-	<?=$this->Html->css('screen.css');?>
-	<?=$this->Html->css('prettify.css');?>
-	<?=$this->Html->script('prettify/prettify.js');?>
-	<?=$this->Html->css('skin.css');?>
+	<?php echo $this->Html->css('screen.css');?>
+	<?php echo $this->Html->css('prettify.css');?>
+	<?php echo $this->Html->css('skin.css');?>
+	<?php echo $this->Html->css('app'); ?>
+	<?php echo $this->Html->css('responsive'); ?>
+	
 	<!--[if IE]>
 	<style type="text/css">
 	  .wrapper {
@@ -220,12 +222,13 @@
 
 	</div>
 	<?php
-		echo $this->element('coordino');
+		//echo $this->element('coordino');
 	?>
   </div>
 
 
 </div>
-
+<?php echo $this->Html->script('bootstrap.min'); ?>
+<?php echo $this->Html->script('prettify/prettify.js'); ?>
 </body>
 </html>

@@ -62,7 +62,7 @@ class ThumbnailHelper extends Helper    {
         $y = !empty($this->options['h']) ? $this->options['h'] : null;
 
         if (!empty($x) || !empty($y)) {
-            $this->php_thumb->crop(0, 0, $x, $y); 
+            $this->php_thumb->cropFromCenter(0, 0, $x, $y); 
         }
         
         if ($this->php_thumb->save($this->cache_filename)) {

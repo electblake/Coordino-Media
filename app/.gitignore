@@ -1,3 +1,4 @@
 Vendor
 !Vendor/empty
 Plugin
+node_modules*

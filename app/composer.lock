@@ -1,5 +1,5 @@
 {
-    "hash": "9ec09d44ee051ca8d84da665a0e06592",
+    "hash": "7903cb5ba5e5111cf90cae8fc4d8e060",
     "packages": [
         {
             "name": "cakephp/debug_kit",
@@ -118,47 +118,6 @@
                 "symfony",
                 "wordpress",
                 "zend"
-            ]
-        },
-        {
-            "name": "edlcdmc/lib-phpthumb",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/edlcdmc/lib-phpThumb.git",
-                "reference": "2549bfdcd81e5b631de86caacea9b88a972da469"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/edlcdmc/lib-phpThumb/zipball/2549bfdcd81e5b631de86caacea9b88a972da469",
-                "reference": "2549bfdcd81e5b631de86caacea9b88a972da469",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.2"
-            },
-            "time": "2012-09-09 20:57:47",
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "PhpThumb_": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL"
-            ],
-            "authors": [
-                {
-                    "name": "James Heinric",
-                    "email": "info@silisoftware.com"
-                }
-            ],
-            "description": "phpThumb() uses the GD library to create thumbnails from images (GIF, PNG or JPEG) on the fly",
-            "homepage": "http://phpthumb.sourceforge.net",
-            "keywords": [
-                "Symfony2",
-                "phpthumb"
             ]
         },
         {
@@ -282,45 +241,71 @@
             }
         },
         {
-            "name": "mustache/mustache",
-            "version": "v2.0.2",
+            "name": "slywalker/twitter_bootstrap",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/bobthecow/mustache.php",
-                "reference": "v2.0.2"
+                "url": "https://github.com/slywalker/TwitterBootstrap.git",
+                "reference": "2cebcbcfd77d5f4afaf0db0e5091966b500cede0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/bobthecow/mustache.php/zipball/v2.0.2",
-                "reference": "v2.0.2",
+                "url": "https://api.github.com/repos/slywalker/TwitterBootstrap/zipball/2cebcbcfd77d5f4afaf0db0e5091966b500cede0",
+                "reference": "2cebcbcfd77d5f4afaf0db0e5091966b500cede0",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.2.4"
+                "composer/installers": "*",
+                "php": ">=5.3.0"
             },
-            "time": "2012-09-12 09:13:06",
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Mustache": "src/"
-                }
+            "suggest": {
+                "twitter/bootstrap": "Bootstrap for Twitter"
             },
+            "time": "2013-02-04 08:41:40",
+            "type": "cakephp-plugin",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "authors": [
                 {
-                    "name": "Justin Hileman",
-                    "email": "justin@justinhileman.info",
-                    "homepage": "http://justinhileman.com"
+                    "name": "Yasuo Harada",
+                    "email": "slywalker.net@gmail.com"
                 }
             ],
-            "description": "A Mustache implementation in PHP.",
-            "homepage": "https://github.com/bobthecow/mustache.php",
+            "description": "CakePHP Bootstrap (for Twitter) Plugin",
+            "homepage": "https://github.com/slywalker/TwitterBootstrap",
             "keywords": [
-                "mustache",
-                "templating"
+                "bootstrap",
+                "cakephp",
+                "twitter"
+            ]
+        },
+        {
+            "name": "twitter/bootstrap",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twitter/bootstrap.git",
+                "reference": "v2.3.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twitter/bootstrap/zipball/v2.3.0",
+                "reference": "v2.3.0",
+                "shasum": ""
+            },
+            "time": "2013-02-08 06:13:13",
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "Sleek, intuitive, and powerful front-end framework for faster and easier web development.",
+            "homepage": "http://twitter.github.com/bootstrap/",
+            "keywords": [
+                "bootstrap",
+                "css"
             ]
         },
         {
@@ -366,8 +351,9 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "edlcdmc/lib-phpthumb": 20,
         "uzyn/composer": 20,
-        "cakephp/debug_kit": 20
+        "cakephp/debug_kit": 20,
+        "slywalker/twitter_bootstrap": 20,
+        "twitter/bootstrap": 20
     }
 }

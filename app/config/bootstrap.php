@@ -142,6 +142,7 @@ Cache::config('default', array('engine' => 'File'));
  * CakePlugin::load('DebugKit'); //Loads a single plugin named DebugKit
  *
  */
+  CakePlugin::loadAll();
   CakePlugin::load('Composer', array('bootstrap' => true));
 
 /**
@@ -181,3 +182,5 @@ CakeLog::config('error', array(
 ));
 
 Configure::write("Recaptcha.open", true);
+
+CakePlugin::load('EmbedQuestion', array('bootstrap' => false, 'routes' => false));
