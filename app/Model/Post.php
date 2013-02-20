@@ -2,7 +2,17 @@
 class Post extends AppModel {
 
 	var $name = 'Post';
-    var $actsAs = array('Revision' => array('limit' => 5, 'ignore' => array('views', 'tags', 'Tag', 'status')));
+    var $actsAs = array(
+        'Revision' => array(
+            'limit' => 5, 
+            'ignore' => array(
+                'views', 
+                'tags', 
+                'Tag',
+                'status'
+            )
+        )
+    );
 
 	var $validate = array(
 	    'content' => array(
@@ -37,7 +47,7 @@ class Post extends AppModel {
 	    )
     );  
 	var $hasAndBelongsToMany = array('Tag' =>
-	                            array('className'    => 'Tag',
+                                array('className'    => 'Tag',
 	                                  'joinTable'    => 'post_tags',
 	                                  'foreignKey'   => 'post_id',
 	                                  'associationForeignKey'=> 'tag_id',

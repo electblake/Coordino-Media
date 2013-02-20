@@ -480,7 +480,9 @@ class HtmlFilter implements HtmlParserHandler {
             array_push($this->tagStack, $tagName);
         }
         $this->output .= '<' . $tagName;
-        $allowedAttributes = $this->allowedAttributes[$tagName];
+        if (!empty($this->allowedAttributes[$tagName])) {
+            $allowedAttributes = $this->allowedAttributes[$tagName];
+        }
         if (isset($allowedAttributes) && is_array($allowedAttributes)) {
             foreach ($attributes as $name => $value) {
                 if (in_array($name, $allowedAttributes)) {

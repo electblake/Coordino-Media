@@ -92,8 +92,9 @@ class PostsController extends AppController {
 					$userId = $this->Auth->user('id');
 				}
 				$post = $this->__postSave('question', $userId, $this->request->data);
-			
-				$this->redirect('/questions/' . $post['public_key'] . '/' . $post['url_title']);
+			  if (!empty($post) && $post) {
+          $this->redirect('/questions/' . $post['Post']['public_key'] . '/' . $post['Post']['url_title']);
+        }
 		}
 		
 	}
@@ -208,35 +209,35 @@ class PostsController extends AppController {
 		/**
 		 * Add in required Post data
 		 */
-		$data['Post']['type'] = $type;
-		$data['Post']['user_id'] = $userId;
-		$data['Post']['timestamp'] = time();
+    $this->post_data = $data;
+		$this->post_data['Post']['type'] = $type;
+		$this->post_data['Post']['user_id'] = $userId;
+		$this->post_data['Post']['timestamp'] = time();
 
 		if($type == 'question') {
-			$data['Post']['url_title'] = $this->Post->niceUrl($data['Post']['title']);
+			$this->post_data['Post']['url_title'] = $this->Post->niceUrl($this->post_data['Post']['title']);
 		}
 		if($type == 'answer') {
-			$data['Post']['related_id'] = $relatedId;
+			$this->post_data['Post']['related_id'] = $relatedId;
 		}
 
-		$data['Post']['public_key'] = uniqid();
+		$this->post_data['Post']['public_key'] = uniqid();
 
-		if(!empty($data['Post']['tags'])) {
+		if(!empty($this->post_data['Post']['tags'])) {
 			$this->Post->Behaviors->attach('Tag', array('table_label' => 'tags', 'tags_label' => 'tag', 'separator' => ', '));
 		}
-
 
 		/**
 		 * Filter out any nasty XSS
 		 */
 		//Configure::write('debug', 0);
-		$data['Post']['content'] = str_replace('<code>', '<code class="prettyprint">', $data['Post']['content']);
-		$data['Post']['content'] = $this->Htmlfilter->filter($data['Post']['content']);
+		$this->post_data['Post']['content'] = str_replace('<code>', '<code class="prettyprint">', $this->post_data['Post']['content']);
+		$this->post_data['Post']['content'] = $this->Htmlfilter->filter($this->post_data['Post']['content']);
 		/**
 		 * Spam Protection
 		 */ 
 		$flags = 0;
-		$content = strip_tags($data['Post']['content']);
+		$content = strip_tags($this->post_data['Post']['content']);
 		// Get links in the content
 		$links = preg_match_all("#(^|[\n ])(?:(?:http|ftp|irc)s?:\/\/|www.)(?:[-A-Za-z0-9]+\.)+[A-Za-z]{2,4}(?:[-a-zA-Z0-9._\/&=+%?;\#]+)#is", $content, $matches);
 		$links = $matches[0];
@@ -300,7 +301,7 @@ class PostsController extends AppController {
 		}
 		
 		$manyTimes = $this->Post->find('count', array(
-			'conditions' => array('Post.content' => $this->data['Post']['content'])
+			'conditions' => array('Post.content' => $this->post_data['Post']['content'])
 			));
 			
 		// Random character match
@@ -314,14 +315,16 @@ class PostsController extends AppController {
 		
 		$flags = $flags + $manyTimes;
 		
-		$this->data['Post']['flags'] = $flags;
+		$this->post_data['Post']['flags'] = $flags;
 		if($flags >= $this->Setting->getValue('flag_display_limit')) {
-			$this->data['Post']['tags'] = '';
+			$this->post_data['Post']['tags'] = '';
 		}
 		/** 
 		 * Save the Data
 		 */
-		if($this->Post->save($this->data)) { 
+    //Debugger::dump($data);
+		if($post = $this->Post->save($this->post_data)) { 
+
             if($type == 'question') {
                 $this->History->record('asked', $this->Post->id, $this->Auth->user('id'));
             }elseif($type == 'answer') {
@@ -334,7 +337,7 @@ class PostsController extends AppController {
                 $this->User->save(array('id' => $userId, 'answer_count' => $user_info['User']['answer_count'] + 1));
             }
 
-            $post = $this->data['Post'];
+            //$post = $this->post_data['Post'];
 
 			/**
 			 * Hack to normalize data.
