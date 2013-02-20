@@ -228,7 +228,8 @@
 
 
 </div>
-<?php echo $this->Html->script('bootstrap.min'); ?>
+<?php echo $this->Html->script('//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js '); ?>
+<?php echo $this->Html->script('bootstrap'); ?>
 <?php echo $this->Html->script('prettify/prettify.js'); ?>
 </body>
 </html>

@@ -7,7 +7,7 @@ class UsersController extends AppController {
 	var $components = array(
     'Auth' => array(
       'loginRedirect' => array('controller' => 'posts', 'action' => 'display'),
-      'logoutRedirect' => array('controller' => 'posts', 'action' => 'displsy')
+      'logoutRedirect' => array('controller' => 'posts', 'action' => 'display')
     ),
     'Session',
     'Cookie', 
@@ -64,7 +64,7 @@ class UsersController extends AppController {
       if ($this->Auth->login()) {
           $this->redirect($this->Auth->redirect());
       } else {
-          $this->Session->setFlash(__('Invalid username or password, try again'));
+          $this->TwitterBootstrap->alert('error', __('Invalid username or password, try again'));
       }
     }
 	}

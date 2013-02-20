@@ -39,7 +39,8 @@ class AppController extends Controller {
   public $components = array(
   	'Auth',
   	'Session',
-  	'Cakeless.Cakeless'
+  	'Cakeless.Cakeless',
+  	'TwitterBootstrap.TwitterBootstrap'
   );
   public $helper = array(
   	'Html' => array('className' => 'TwitterBootstrap.BootstrapHtml'),
